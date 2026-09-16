@@ -33,23 +33,66 @@ button {
   cursor: pointer;
 }
 
+/* Foco de teclado explícito: en dark mode el outline azul por
+   defecto del navegador puede perderse contra el fondo oscuro */
+:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+
+/* ====================================
+   FUENTES
+   Self-hosted (no Google Fonts en runtime): el sitio recibe
+   tráfico pago desde mobile, no queremos depender de un
+   tercero para el render del texto. Un solo peso por fuente
+   (la web es en español, alcanza con el subset latin) para
+   no sumar peso de más.
+   ==================================== */
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../fonts/space-grotesk-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/inter-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 /* ====================================
    VARIABLES
-   TODO: definir paleta y tipografía definitivas
+   Dark mode profesional: sin negro ni blanco puro (fatiga
+   visual, se ve barato). La jerarquía se construye con
+   niveles de luminosidad —fondo / superficie / borde—,
+   no con sombras.
    ==================================== */
 
 :root {
   /* Colores */
-  --color-primario: #000000;
-  --color-secundario: #666666;
-  --color-fondo: #ffffff;
-  --color-texto: #1a1a1a;
-  --color-texto-claro: #ffffff;
-  --color-borde: #e0e0e0;
+  --color-fondo: #0F1115;
+  --color-superficie: #181B21;
+  --color-borde: #262A33;
+  --color-texto: #E8EAED;
+  --color-secundario: #9AA0AA;
+
+  /* Un solo azul no puede cumplir dos roles: como texto sobre fondo
+     oscuro necesita ser claro, como fill de botón con texto blanco
+     necesita ser oscuro. Por eso son dos tokens separados: */
+  --color-acento: #3B82F6;    /* texto, links, iconos, focus ring */
+  --color-primario: #2563EB;  /* fill de botones */
+  --color-primario-hover: #1D4ED8;
 
   /* Tipografía */
-  --fuente-principal: system-ui, sans-serif;
+  --fuente-titulos: 'Space Grotesk', system-ui, sans-serif;
+  --fuente-principal: 'Inter', system-ui, sans-serif;
 }
 
 
@@ -73,6 +116,8 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--fuente-titulos);
+  font-weight: 700; /* coincide con el único peso que cargamos, evita el bold falso del navegador */
   line-height: 1.2;
 }
 
@@ -144,9 +189,18 @@ h4 {
   border-radius: 0.25rem;
 }
 
+/* --color-primario es un fill, no un color de texto: el blanco
+   funciona en los dos estados (5.2:1 en reposo, 6.7:1 en hover),
+   sin necesidad de cambiar el color del texto entre estados */
 .btn--primario {
   background-color: var(--color-primario);
-  color: var(--color-texto-claro);
+  color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.btn--primario:hover,
+.btn--primario:focus-visible {
+  background-color: var(--color-primario-hover);
 }
 
 
@@ -170,6 +224,7 @@ h4 {
 
 .servicio {
   padding: 1.5rem;
+  background-color: var(--color-superficie);
   border: 1px solid var(--color-borde);
   border-radius: 0.5rem;
 }
@@ -215,6 +270,7 @@ h4 {
    lo que sea "una unidad de contenido dentro de una lista" */
 .proyecto {
   padding: 1.5rem;
+  background-color: var(--color-superficie);
   border: 1px solid var(--color-borde);
   border-radius: 0.5rem;
 }
@@ -295,8 +351,8 @@ h4 {
 
 .btn--secundario {
   background-color: transparent;
-  border: 1px solid var(--color-primario);
-  color: var(--color-primario);
+  border: 1px solid var(--color-acento);
+  color: var(--color-acento);
 }
 
 
