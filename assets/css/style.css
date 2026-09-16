@@ -1,0 +1,409 @@
+/* ====================================
+   RESET
+   Normaliza diferencias entre navegadores
+   ==================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Los links heredan color y no llevan subrayado por defecto */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Las imágenes nunca se desbordan del contenedor */
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Botones sin estilos por defecto del navegador, para partir de cero */
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+
+/* ====================================
+   VARIABLES
+   TODO: definir paleta y tipografía definitivas
+   ==================================== */
+
+:root {
+  /* Colores */
+  --color-primario: #000000;
+  --color-secundario: #666666;
+  --color-fondo: #ffffff;
+  --color-texto: #1a1a1a;
+  --color-texto-claro: #ffffff;
+  --color-borde: #e0e0e0;
+
+  /* Tipografía */
+  --fuente-principal: system-ui, sans-serif;
+}
+
+
+/* ====================================
+   TIPOGRAFÍA BASE
+   Mobile-first: estos valores son para celular
+   ==================================== */
+
+html {
+  font-size: 100%; /* 1rem = 16px, respeta la config del navegador/usuario */
+}
+
+body {
+  font-family: var(--fuente-principal);
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+
+
+/* ====================================
+   HEADER
+   ==================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-fondo);
+  z-index: 10;
+}
+
+/* list-style: none acá, no global, para no sacarle a Safari/VoiceOver
+   la semántica de lista en <ul> que no son el nav (ej: futuras listas
+   de tecnologías dentro de una ficha de proyecto) */
+.nav__menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+
+.nav__link {
+  display: inline-block;
+  padding: 1rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+
+/* ====================================
+   HERO
+   ==================================== */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+}
+
+.hero__subtitulo {
+  color: var(--color-secundario);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn--primario {
+  background-color: var(--color-primario);
+  color: var(--color-texto-claro);
+}
+
+
+/* ====================================
+   SERVICIOS
+   Mobile-first: las dos tarjetas van apiladas.
+   El layout en fila para desktop se define más adelante,
+   cuando se trabajen las media queries.
+   ==================================== */
+
+.servicios {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 3rem 1.5rem;
+}
+
+.servicios__titulo {
+  text-align: center;
+}
+
+.servicio {
+  padding: 1.5rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.5rem;
+}
+
+.servicio__titulo {
+  margin-bottom: 0.5rem;
+}
+
+.servicio__descripcion {
+  color: var(--color-secundario);
+}
+
+
+/* ====================================
+   PROYECTOS
+   Mobile-first: todo apilado en una columna.
+   El grid de varias columnas para desktop se define más
+   adelante, junto con el resto de las media queries.
+   ==================================== */
+
+.proyectos {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 3rem 1.5rem;
+}
+
+.proyectos__titulo {
+  text-align: center;
+}
+
+.categoria-proyectos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.categoria-proyectos__titulo {
+  text-align: center;
+}
+
+/* Misma tarjeta que .servicio, mismo lenguaje visual para todo
+   lo que sea "una unidad de contenido dentro de una lista" */
+.proyecto {
+  padding: 1.5rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.5rem;
+}
+
+.proyecto__titulo {
+  margin-bottom: 0.5rem;
+}
+
+.proyecto__descripcion {
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+}
+
+/* Lista de tecnologías: se le saca la viñeta acá mismo, igual
+   que en .nav__menu, sin tocar el reset global */
+.proyecto__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.proyecto__stack-item {
+  font-size: 0.85rem;
+  color: var(--color-secundario);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+}
+
+
+/* ====================================
+   SOBRE MÍ
+   ==================================== */
+
+.sobre-mi {
+  padding: 3rem 1.5rem;
+}
+
+.sobre-mi__titulo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Sin color propio: hereda var(--color-texto) del body.
+   Es un párrafo de lectura, no un texto secundario. */
+.sobre-mi__texto {
+  line-height: 1.6;
+}
+
+
+/* ====================================
+   CONTACTO
+   Los botones van sin color de marca todavía (btn--secundario,
+   neutro): WhatsApp/Instagram tienen colores propios que se
+   definen junto con el resto de la paleta, no antes.
+   ==================================== */
+
+.contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.contacto__titulo {
+  margin-bottom: 0.5rem;
+}
+
+.contacto__link {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.btn--secundario {
+  background-color: transparent;
+  border: 1px solid var(--color-primario);
+  color: var(--color-primario);
+}
+
+
+/* ====================================
+   MEDIA QUERIES
+   Todo lo de arriba es la base mobile. Dos breakpoints,
+   elegidos mirando las 5 secciones juntas:
+
+   - 768px (tablet): ya sobra ancho para poner en fila los
+     bloques que van de a pares (las 2 tarjetas de Servicios,
+     los 2 botones de Contacto) y para ponerle un límite de
+     ancho de línea al texto de lectura (Hero, Sobre mí), que
+     si no queda estirado de punta a punta de la pantalla.
+
+   - 1024px (desktop): recién acá hay espacio de sobra como
+     para que Proyectos —la sección más densa, hasta 5 fichas
+     en una sola categoría— pase a grid de varias columnas.
+     Aprovecho el mismo salto para subir un escalón la
+     tipografía de los títulos.
+   ==================================== */
+
+@media (min-width: 768px) {
+  .hero {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .servicios {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  /* El título es hijo directo del flex container, igual que las
+     2 tarjetas: sin esto quedaría al lado de ellas en vez de arriba */
+  .servicios__titulo {
+    flex-basis: 100%;
+  }
+
+  .servicio {
+    flex: 1;
+  }
+
+  .sobre-mi {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .contacto {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  /* Mismo caso que .servicios__titulo: sin esto el título
+     quedaría al lado de los botones en vez de arriba */
+  .contacto__titulo {
+    flex-basis: 100%;
+  }
+
+  .contacto__link {
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  .hero,
+  .servicios,
+  .proyectos,
+  .sobre-mi,
+  .contacto {
+    padding-block: 5rem;
+  }
+
+  .proyectos {
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+
+  .categoria-proyectos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: start;
+  }
+
+  /* El título de la categoría es hijo directo del grid: sin esto
+     ocuparía una sola columna en vez de ir arriba de todo */
+  .categoria-proyectos__titulo {
+    grid-column: 1 / -1;
+  }
+}
