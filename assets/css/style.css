@@ -149,6 +149,15 @@ h4 {
   z-index: 10;
 }
 
+.nav__marca {
+  display: block;
+  text-align: center;
+  padding: 0.75rem 1rem 0;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 /* list-style: none acá, no global, para no sacarle a Safari/VoiceOver
    la semántica de lista en <ul> que no son el nav (ej: futuras listas
    de tecnologías dentro de una ficha de proyecto) */
@@ -316,17 +325,23 @@ h4 {
 }
 
 /* Sin color propio: hereda var(--color-texto) del body.
-   Es un párrafo de lectura, no un texto secundario. */
+   Es un párrafo de lectura, no un texto secundario. Son varios
+   <p>, uno por párrafo del texto original: el margin-bottom acá
+   es lo que separa a cada uno del siguiente. */
 .sobre-mi__texto {
   line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.sobre-mi__texto:last-child {
+  margin-bottom: 0;
 }
 
 
 /* ====================================
    CONTACTO
-   Los botones van sin color de marca todavía (btn--secundario,
-   neutro): WhatsApp/Instagram tienen colores propios que se
-   definen junto con el resto de la paleta, no antes.
+   Los botones son btn--secundario con --color-acento: WhatsApp
+   e Instagram todavía no tienen link real (href="#" provisorio).
    ==================================== */
 
 .contacto {
@@ -342,6 +357,10 @@ h4 {
   margin-bottom: 0.5rem;
 }
 
+.contacto__texto {
+  color: var(--color-secundario);
+}
+
 .contacto__link {
   display: block;
   width: 100%;
@@ -353,6 +372,22 @@ h4 {
   background-color: transparent;
   border: 1px solid var(--color-acento);
   color: var(--color-acento);
+}
+
+
+/* ====================================
+   FOOTER
+   ==================================== */
+
+.footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-borde);
+  text-align: center;
+}
+
+.footer__texto {
+  color: var(--color-secundario);
+  font-size: 0.85rem;
 }
 
 
@@ -410,9 +445,10 @@ h4 {
     margin-inline: auto;
   }
 
-  /* Mismo caso que .servicios__titulo: sin esto el título
-     quedaría al lado de los botones en vez de arriba */
-  .contacto__titulo {
+  /* Mismo caso que .servicios__titulo: sin esto el título y el
+     texto quedarían al lado de los botones en vez de arriba */
+  .contacto__titulo,
+  .contacto__texto {
     flex-basis: 100%;
   }
 
@@ -451,10 +487,19 @@ h4 {
     margin-inline: auto;
   }
 
+  /* Probé multi-column acá para evitar huecos entre filas de
+     distinta altura, pero rompe el orden de lectura: con fichas
+     de largo tan variable, el algoritmo de balanceo agrupa 2
+     fichas cortas en una columna y salta la fila, así que la
+     ficha 2 terminaba visualmente debajo de la 1 mientras la 3
+     ya aparecía en la columna siguiente — se pierde la secuencia
+     1 a 5. Vuelvo a grid (orden de lectura correcto, fila por
+     fila) y dejo el align-items en su default (stretch): las
+     fichas cortas de una fila se estiran a la altura de la más
+     alta en vez de dejar un hueco debajo. */
   .categoria-proyectos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    align-items: start;
   }
 
   /* El título de la categoría es hijo directo del grid: sin esto
