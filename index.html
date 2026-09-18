@@ -3,173 +3,372 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Desarrollo de sistemas de gestión a medida y páginas web para negocios. Software en Flask, PostgreSQL y Railway, pensado para tu operación diaria.">
+
   <title>Lautaro Bitti · Desarrollo de Software</title>
+  <meta name="description" content="Sistemas de gestión a medida y páginas web para negocios e instituciones. Python, Flask y PostgreSQL. Las Parejas, Santa Fe — trabajo remoto.">
+
+  <!-- URLs absolutas (canonical, og:url, og:image): las previews de WhatsApp e
+       Instagram no aceptan rutas relativas. El sitio se publica en GitHub Pages
+       bajo /portfolio/, así que el subdirectorio va incluido. Si más adelante se
+       usa un dominio propio, hay que cambiarlas acá y en el JSON-LD. -->
+  <link rel="canonical" href="https://bittilautaro.github.io/portfolio/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bittilautaro.github.io/portfolio/">
+  <meta property="og:title" content="Lautaro Bitti — Desarrollo de software a medida">
+  <meta property="og:description" content="Sistemas de gestión a medida y páginas web para negocios e instituciones. Clientes reales en producción.">
+  <meta property="og:image" content="https://bittilautaro.github.io/portfolio/assets/img/og-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Lautaro Bitti — Desarrollo de software a medida">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="Lautaro Bitti">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lautaro Bitti — Desarrollo de software a medida">
+  <meta name="twitter:description" content="Sistemas de gestión a medida y páginas web para negocios e instituciones. Clientes reales en producción.">
+  <meta name="twitter:image" content="https://bittilautaro.github.io/portfolio/assets/img/og-preview.png">
+  <meta name="twitter:image:alt" content="Lautaro Bitti — Desarrollo de software a medida">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0F1115">
+
+  <link rel="preload" href="assets/fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lautaro Bitti",
+    "jobTitle": "Desarrollador de software",
+    "url": "https://bittilautaro.github.io/portfolio/",
+    "sameAs": ["https://github.com/BittiLautaro"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Las Parejas",
+      "addressRegion": "Santa Fe",
+      "addressCountry": "AR"
+    },
+    "knowsAbout": ["Python", "Flask", "PostgreSQL", "HTML", "CSS", "JavaScript", "Git", "Railway"]
+  }
+  </script>
 </head>
 <body>
 
-  <!-- Header fijo con navegación por anclas a cada sección -->
+  <a class="salto-contenido" href="#inicio">Saltar al contenido</a>
+
+  <!-- Header fijo: marca, anclas de sección y GitHub siempre a mano -->
   <header class="header">
-    <nav class="nav">
-      <a class="nav__marca" href="#inicio">Lautaro Bitti · Desarrollo de Software</a>
-      <ul class="nav__menu">
-        <li class="nav__item"><a class="nav__link" href="#inicio">Inicio</a></li>
-        <li class="nav__item"><a class="nav__link" href="#servicios">Servicios</a></li>
-        <li class="nav__item"><a class="nav__link" href="#proyectos">Proyectos</a></li>
-        <li class="nav__item"><a class="nav__link" href="#sobre-mi">Sobre mí</a></li>
-        <li class="nav__item"><a class="nav__link" href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
+    <div class="header__interior">
+      <a class="header__marca" href="#inicio">
+        <span class="header__marca-nombre">Lautaro Bitti</span><span class="header__marca-rol"> · Desarrollo de Software</span>
+      </a>
+
+      <a class="header__github" href="https://github.com/BittiLautaro" target="_blank" rel="noopener">GitHub</a>
+
+      <nav class="nav" aria-label="Secciones del sitio">
+        <ul class="nav__menu">
+          <li class="nav__item"><a class="nav__link" href="#servicios">Servicios</a></li>
+          <li class="nav__item"><a class="nav__link" href="#proyectos">Proyectos</a></li>
+          <li class="nav__item"><a class="nav__link" href="#sobre-mi">Sobre mí</a></li>
+          <li class="nav__item"><a class="nav__link" href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
 
-    <!-- 1. Hero: título, subtítulo y botón de llamada a la acción -->
-    <section class="hero" id="inicio">
-      <h1 class="hero__titulo">Sistemas a medida para tu negocio</h1>
-      <p class="hero__subtitulo">Si trabajás con planillas sueltas, registros en papel o un sistema que ya te quedó chico, desarrollo el software según tus necesidades.</p>
-      <a class="btn btn--primario" href="#contacto">Pedir presupuesto</a>
+    <!-- 1. Hero -->
+    <section class="seccion hero" id="inicio">
+      <div class="seccion__interior">
+        <h1 class="hero__titulo">Lautaro Bitti — Desarrollo de software a medida</h1>
+        <p class="hero__claim">Sistemas a medida para tu negocio</p>
+        <p class="hero__subtitulo">Si trabajás con planillas sueltas, registros en papel o un sistema que ya te quedó chico, desarrollo el software según tus necesidades.</p>
+        <div class="hero__acciones">
+          <a class="btn btn--primario" href="#contacto">Pedir presupuesto</a>
+          <a class="btn btn--fantasma" href="#proyectos">Ver proyectos</a>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Servicios: dos bloques según el tipo de trabajo -->
-    <section class="servicios" id="servicios">
-      <h2 class="servicios__titulo">Servicios</h2>
+    <!-- 2. Servicios: dos columnas de texto, sin tarjeta, para que no compitan
+         con las fichas de proyecto -->
+    <section class="seccion servicios" id="servicios">
+      <div class="seccion__interior">
+        <h2 class="servicios__titulo">Servicios</h2>
 
-      <article class="servicio">
-        <h3 class="servicio__titulo">Sistemas de gestión a medida</h3>
-        <p class="servicio__descripcion">Software a medida, pensado específicamente para el funcionamiento de tu negocio: qué datos se manejan, quién los carga y qué información necesitás tener a la vista. Usuarios con distintos niveles de permiso, reportes exportables y las funciones que realmente vas a usar, sin pagar por módulos que nunca vas a abrir.</p>
-      </article>
+        <div class="servicios__lista">
+          <article class="servicio">
+            <h3 class="servicio__titulo">Sistemas de gestión a medida</h3>
+            <p class="servicio__descripcion">Software a medida, pensado específicamente para el funcionamiento de tu negocio: qué datos se manejan, quién los carga y qué información necesitás tener a la vista. Usuarios con distintos niveles de permiso, reportes exportables y las funciones que realmente vas a usar, sin pagar por módulos que nunca vas a abrir.</p>
+          </article>
 
-      <article class="servicio">
-        <h3 class="servicio__titulo">Páginas web</h3>
-        <p class="servicio__descripcion">Sitios para mostrar tu trabajo y facilitar el contacto: presentación del negocio, galería de productos o servicios y contacto directo por WhatsApp e Instagram.</p>
-      </article>
+          <article class="servicio">
+            <h3 class="servicio__titulo">Páginas web</h3>
+            <p class="servicio__descripcion">Sitios para mostrar tu trabajo y facilitar el contacto: presentación del negocio, galería de productos o servicios y contacto directo por WhatsApp e Instagram.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- 3. Proyectos: mismas dos categorías que Servicios -->
-    <section class="proyectos" id="proyectos">
-      <h2 class="proyectos__titulo">Proyectos</h2>
+    <!-- 3. Proyectos: cada ficha es una fila de caso (captura + historia).
+         El primer párrafo sube a resumen destacado; el resto queda como detalle. -->
+    <section class="seccion proyectos" id="proyectos">
+      <div class="seccion__interior">
+        <h2 class="proyectos__titulo">Proyectos</h2>
 
-      <article class="categoria-proyectos">
-        <h3 class="categoria-proyectos__titulo">Sistemas de gestión</h3>
+        <div class="categoria-proyectos">
+          <h3 class="categoria-proyectos__titulo">Sistemas de gestión</h3>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">DQV Turismo — Sistema de gestión integral</h4>
-          <p class="proyecto__descripcion">Desarrollé una plataforma de gestión para una empresa de turismo estudiantil que necesitaba reemplazar un sistema anterior que había quedado limitado y sin mantenimiento.</p>
-          <p class="proyecto__descripcion">El nuevo sistema está adaptado a la forma de trabajo de la empresa y reúne en un solo lugar distintas áreas de la operación. Cuenta con 11 módulos, incluyendo gestión de colegios, hoteles, seguros, viajes, contratos, caución y pasajeros, entre otros.</p>
-          <p class="proyecto__descripcion">También incorpora un sistema de usuarios y roles, que permite definir qué acciones puede realizar cada empleado según sus responsabilidades.</p>
-          <p class="proyecto__descripcion">El sistema se encuentra en producción y continúa evolucionando con mantenimiento y nuevas funcionalidades.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">Flask</li>
-            <li class="proyecto__stack-item">PostgreSQL</li>
-            <li class="proyecto__stack-item">Railway</li>
-          </ul>
-        </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/dqv-turismo-1200.webp"
+                   srcset="assets/img/dqv-turismo-700.webp 700w, assets/img/dqv-turismo-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="831" decoding="async"
+                   alt="Panel principal del sistema de DQV Turismo, con el menú de módulos a la izquierda y tarjetas de contratos, pasajeros y recaudación del mes.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">DQV Turismo — Sistema de gestión integral</h4>
+              <p class="proyecto__resumen">Desarrollé una plataforma de gestión para una empresa de turismo estudiantil que necesitaba reemplazar un sistema anterior que había quedado limitado y sin mantenimiento.</p>
+              <p class="proyecto__descripcion">El nuevo sistema está adaptado a la forma de trabajo de la empresa y reúne en un solo lugar distintas áreas de la operación. Cuenta con 11 módulos, incluyendo gestión de colegios, hoteles, seguros, viajes, contratos, caución y pasajeros, entre otros.</p>
+              <p class="proyecto__descripcion">También incorpora un sistema de usuarios y roles, que permite definir qué acciones puede realizar cada empleado según sus responsabilidades.</p>
+              <p class="proyecto__descripcion">El sistema se encuentra en producción y continúa evolucionando con mantenimiento y nuevas funcionalidades.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">Flask</li>
+                <li class="proyecto__stack-item">PostgreSQL</li>
+                <li class="proyecto__stack-item">Railway</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Cuartel de Bomberos — Sistema de gestión contable</h4>
-          <p class="proyecto__descripcion">Una institución que llevaba sus registros entre diferentes planillas de Excel y anotaciones en papel. Desarrollé un sistema para centralizar toda su gestión contable.</p>
-          <p class="proyecto__descripcion">El sistema permite administrar cuentas bancarias, cajas en efectivo y cuentas de mutuales, registrando cada ingreso, egreso y manteniendo el balance actualizado de cada cuenta.</p>
-          <p class="proyecto__descripcion">También permite realizar transferencias entre cuentas, registrándolas como movimientos de fondos para evitar que se contabilicen como ingresos o egresos y alteren los totales.</p>
-          <p class="proyecto__descripcion">Además, cuenta con reportes mensuales y por cuenta, que pueden exportarse en PDF y Excel.</p>
-          <p class="proyecto__descripcion">Actualmente se encuentra en uso diario en el cuartel.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">Flask</li>
-            <li class="proyecto__stack-item">PostgreSQL</li>
-          </ul>
-        </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/bomberos-contable-1200.webp"
+                   srcset="assets/img/bomberos-contable-700.webp 700w, assets/img/bomberos-contable-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="831" loading="lazy" decoding="async"
+                   alt="Panel del sistema contable del cuartel, con los saldos bancario y en efectivo, la tabla de cuentas y los accesos a transferencias, balance del mes y exportación a Excel.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Cuartel de Bomberos — Sistema de gestión contable</h4>
+              <p class="proyecto__resumen">Una institución que llevaba sus registros entre diferentes planillas de Excel y anotaciones en papel. Desarrollé un sistema para centralizar toda su gestión contable.</p>
+              <p class="proyecto__descripcion">El sistema permite administrar cuentas bancarias, cajas en efectivo y cuentas de mutuales, registrando cada ingreso, egreso y manteniendo el balance actualizado de cada cuenta.</p>
+              <p class="proyecto__descripcion">También permite realizar transferencias entre cuentas, registrándolas como movimientos de fondos para evitar que se contabilicen como ingresos o egresos y alteren los totales.</p>
+              <p class="proyecto__descripcion">Además, cuenta con reportes mensuales y por cuenta, que pueden exportarse en PDF y Excel.</p>
+              <p class="proyecto__descripcion">Actualmente se encuentra en uso diario en el cuartel.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">Flask</li>
+                <li class="proyecto__stack-item">PostgreSQL</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Cuartel de Bomberos — Control de carga horaria</h4>
-          <p class="proyecto__descripcion">Desarrollé un sistema para registrar y controlar las horas de guardia del personal, dividido en una terminal de marcación y un panel administrativo.</p>
-          <p class="proyecto__descripcion">La terminal funciona en pantalla completa y permanece activa durante todo el día. El personal registra su ingreso utilizando su número de legajo o DNI y, al registrar la salida, el sistema calcula automáticamente la duración de la guardia.</p>
-          <p class="proyecto__descripcion">El panel administrativo permite consultar quién se encuentra trabajando, cuánto tiempo lleva en su guardia actual y cuántas horas acumula durante el mes. También permite exportar la información en PDF y Excel.</p>
-          <p class="proyecto__descripcion">Para evitar errores por olvidos al registrar una salida, el sistema permite establecer un límite de horas corridas y cerrar automáticamente una guardia cuando se alcanza ese límite.</p>
-          <p class="proyecto__descripcion">Actualmente estoy trabajando en la integración de un lector de huellas digitales para validar la identidad de quien realiza la marcación.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">Flask</li>
-            <li class="proyecto__stack-item">PostgreSQL</li>
-          </ul>
-        </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/bomberos-carga-horaria-1200.webp"
+                   srcset="assets/img/bomberos-carga-horaria-700.webp 700w, assets/img/bomberos-carga-horaria-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="831" loading="lazy" decoding="async"
+                   alt="Panel administrativo del control de carga horaria, con el estado del personal en servicio y el resumen mensual por período.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Cuartel de Bomberos — Control de carga horaria</h4>
+              <p class="proyecto__resumen">Desarrollé un sistema para registrar y controlar las horas de guardia del personal, dividido en una terminal de marcación y un panel administrativo.</p>
+              <p class="proyecto__descripcion">La terminal funciona en pantalla completa y permanece activa durante todo el día. El personal registra su ingreso utilizando su número de legajo o DNI y, al registrar la salida, el sistema calcula automáticamente la duración de la guardia.</p>
+              <p class="proyecto__descripcion">El panel administrativo permite consultar quién se encuentra trabajando, cuánto tiempo lleva en su guardia actual y cuántas horas acumula durante el mes. También permite exportar la información en PDF y Excel.</p>
+              <p class="proyecto__descripcion">Para evitar errores por olvidos al registrar una salida, el sistema permite establecer un límite de horas corridas y cerrar automáticamente una guardia cuando se alcanza ese límite.</p>
+              <p class="proyecto__descripcion">Actualmente estoy trabajando en la integración de un lector de huellas digitales para validar la identidad de quien realiza la marcación.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">Flask</li>
+                <li class="proyecto__stack-item">PostgreSQL</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Lavadero de autos — Sistema de gestión</h4>
-          <p class="proyecto__descripcion">Los turnos se manejaban entre notas del celular y mensajes de WhatsApp. Con pocos turnos funciona, pero cuando se acumulan, uno reservado con dos semanas de anticipación queda sepultado en el historial y se pierde.</p>
-          <p class="proyecto__descripcion">Desarrollé un sistema para organizar toda la gestión del lavadero. Cuenta con una agenda de turnos, registro de lavados con monto y estado de cobro, carga de gastos en productos e insumos, catálogo de servicios y balance mensual.</p>
-          <p class="proyecto__descripcion">El dashboard permite consultar rápidamente los principales datos del negocio: autos lavados durante el mes, dinero cobrado, gastos, ganancia neta y próximos turnos.</p>
-          <p class="proyecto__descripcion">Es un sistema que desarrollé para mi propio lavadero y que utilizo diariamente.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">Flask</li>
-            <li class="proyecto__stack-item">PostgreSQL</li>
-            <li class="proyecto__stack-item">Railway</li>
-          </ul>
-        </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/lavadero-1200.webp"
+                   srcset="assets/img/lavadero-700.webp 700w, assets/img/lavadero-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="891" loading="lazy" decoding="async"
+                   alt="Dashboard del sistema del lavadero, con los totales del mes —autos lavados, dinero cobrado, gastos y ganancia neta— y la lista de próximos turnos.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Lavadero de autos — Sistema de gestión</h4>
+              <p class="proyecto__resumen">Los turnos se manejaban entre notas del celular y mensajes de WhatsApp. Con pocos turnos funciona, pero cuando se acumulan, uno reservado con dos semanas de anticipación queda sepultado en el historial y se pierde.</p>
+              <p class="proyecto__descripcion">Desarrollé un sistema para organizar toda la gestión del lavadero. Cuenta con una agenda de turnos, registro de lavados con monto y estado de cobro, carga de gastos en productos e insumos, catálogo de servicios y balance mensual.</p>
+              <p class="proyecto__descripcion">El dashboard permite consultar rápidamente los principales datos del negocio: autos lavados durante el mes, dinero cobrado, gastos, ganancia neta y próximos turnos.</p>
+              <p class="proyecto__descripcion">Es un sistema que desarrollé para mi propio lavadero y que utilizo diariamente.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">Flask</li>
+                <li class="proyecto__stack-item">PostgreSQL</li>
+                <li class="proyecto__stack-item">Railway</li>
+              </ul>
+            </div>
+          </article>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Pizzería — Sistema de gestión de ventas</h4>
-          <p class="proyecto__descripcion">Desarrollé un sistema para organizar las ventas y los pedidos de mi emprendimiento de venta de pizzas, que anteriormente registraba la información en el bloc de notas del celular.</p>
-          <p class="proyecto__descripcion">El sistema permite administrar clientes y sus direcciones, cargar las ventas de cada jornada y consultar la información necesaria para realizar el reparto.</p>
-          <p class="proyecto__descripcion">Cuando se registra un pedido de un cliente que todavía no existe, el sistema permite crear el cliente en ese mismo momento, haciendo que la base de datos se construya mientras se utiliza el sistema.</p>
-          <p class="proyecto__descripcion">Actualmente lo utilizo en cada jornada de venta y cuenta con 103 clientes registrados. El próximo paso previsto es migrarlo a una plataforma web con base de datos, para poder cargar las ventas directamente desde el celular durante el reparto.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">Python</li>
-            <li class="proyecto__stack-item">JSON</li>
-          </ul>
-        </article>
-      </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen proyecto__imagen--terminal"
+                   src="assets/img/pizzeria-1200.webp"
+                   srcset="assets/img/pizzeria-700.webp 700w, assets/img/pizzeria-1200.webp 1181w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1181" height="597" loading="lazy" decoding="async"
+                   alt="Menú del sistema de ventas de pizzas corriendo en una terminal, con el total de clientes registrados y las opciones para cargar una venta o cerrar el reparto.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Pizzería — Sistema de gestión de ventas</h4>
+              <p class="proyecto__resumen">Desarrollé un sistema para organizar las ventas y los pedidos de mi emprendimiento de venta de pizzas, que anteriormente registraba la información en el bloc de notas del celular.</p>
+              <p class="proyecto__descripcion">El sistema permite administrar clientes y sus direcciones, cargar las ventas de cada jornada y consultar la información necesaria para realizar el reparto.</p>
+              <p class="proyecto__descripcion">Cuando se registra un pedido de un cliente que todavía no existe, el sistema permite crear el cliente en ese mismo momento, haciendo que la base de datos se construya mientras se utiliza el sistema.</p>
+              <p class="proyecto__descripcion">Actualmente lo utilizo en cada jornada de venta y cuenta con 103 clientes registrados. El próximo paso previsto es migrarlo a una plataforma web con base de datos, para poder cargar las ventas directamente desde el celular durante el reparto.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">Python</li>
+                <li class="proyecto__stack-item">JSON</li>
+              </ul>
+            </div>
+          </article>
+        </div>
 
-      <article class="categoria-proyectos">
-        <h3 class="categoria-proyectos__titulo">Páginas web</h3>
+        <div class="categoria-proyectos">
+          <h3 class="categoria-proyectos__titulo">Páginas web</h3>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Mecheros LP — Sitio institucional</h4>
-          <p class="proyecto__descripcion">Desarrollé un sitio web para un emprendimiento dedicado a la fabricación de mecheros de aluminio fundido para cocina al disco.</p>
-          <p class="proyecto__descripcion">El sitio funciona como una presentación del emprendimiento y sus productos, con una sección institucional, galería de fotografías y diferentes opciones para ponerse en contacto directamente por WhatsApp e Instagram, además de un formulario de contacto.</p>
-          <p class="proyecto__descripcion">La idea fue darle al emprendimiento un espacio propio en internet, complementando su presencia en redes sociales.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">HTML</li>
-            <li class="proyecto__stack-item">CSS</li>
-            <li class="proyecto__stack-item">JavaScript</li>
-          </ul>
-        </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/mecheros-lp-1200.webp"
+                   srcset="assets/img/mecheros-lp-700.webp 700w, assets/img/mecheros-lp-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="831" loading="lazy" decoding="async"
+                   alt="Portada del sitio de Mecheros LP: el logo de la marca sobre una fotografía oscura de una cocina al disco encendida.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Mecheros LP — Sitio institucional</h4>
+              <p class="proyecto__resumen">Desarrollé un sitio web para un emprendimiento dedicado a la fabricación de mecheros de aluminio fundido para cocina al disco.</p>
+              <p class="proyecto__descripcion">El sitio funciona como una presentación del emprendimiento y sus productos, con una sección institucional, galería de fotografías y diferentes opciones para ponerse en contacto directamente por WhatsApp e Instagram, además de un formulario de contacto.</p>
+              <p class="proyecto__descripcion">La idea fue darle al emprendimiento un espacio propio en internet, complementando su presencia en redes sociales.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">HTML</li>
+                <li class="proyecto__stack-item">CSS</li>
+                <li class="proyecto__stack-item">JavaScript</li>
+              </ul>
+              <p class="proyecto__acciones">
+                <a class="btn btn--secundario" href="https://mecheroslp.com.ar/" target="_blank" rel="noopener"
+                   aria-label="Ver el sitio de Mecheros LP (abre en una pestaña nueva)">Ver sitio</a>
+              </p>
+            </div>
+          </article>
 
-        <article class="proyecto">
-          <h4 class="proyecto__titulo">Simplemente Momentos PH — Portfolio fotográfico</h4>
-          <p class="proyecto__descripcion">Una fotógrafa especializada en eventos, bodas, cumpleaños y retratos que necesitaba reunir su trabajo en un espacio propio. Desarrollé el sitio con ese objetivo.</p>
-          <p class="proyecto__descripcion">El sitio cuenta con una presentación personal y una galería organizada en 12 categorías, con cerca de 180 fotografías en total.</p>
-          <p class="proyecto__descripcion">Uno de los puntos principales del desarrollo fue optimizar la carga de las imágenes. Las fotografías originales llegaban a pesar entre 20 y 30 MB y tenían una resolución de hasta 8K. Las optimicé a Full HD, logrando que ninguna imagen supere 1 MB.</p>
-          <p class="proyecto__descripcion">Además, la galería está preparada para cargar únicamente las fotografías de la categoría que se está visualizando, evitando cargar todas las imágenes del sitio al mismo tiempo.</p>
-          <p class="proyecto__descripcion">El sitio también incluye formulario de contacto y accesos directos a WhatsApp, Instagram y Facebook.</p>
-          <ul class="proyecto__stack">
-            <li class="proyecto__stack-item">HTML</li>
-            <li class="proyecto__stack-item">CSS</li>
-            <li class="proyecto__stack-item">JavaScript</li>
-          </ul>
-        </article>
-      </article>
+          <article class="proyecto">
+            <div class="proyecto__media">
+              <img class="proyecto__imagen"
+                   src="assets/img/simplemente-momentos-1200.webp"
+                   srcset="assets/img/simplemente-momentos-700.webp 700w, assets/img/simplemente-momentos-1200.webp 1200w"
+                   sizes="(min-width: 768px) 42vw, 100vw"
+                   width="1200" height="831" loading="lazy" decoding="async"
+                   alt="Portada del sitio de Simplemente Momentos: el nombre del estudio sobre una fotografía de un caballo blanco en un bosque.">
+            </div>
+            <div class="proyecto__cuerpo">
+              <h4 class="proyecto__titulo">Simplemente Momentos PH — Portfolio fotográfico</h4>
+              <p class="proyecto__resumen">Una fotógrafa especializada en eventos, bodas, cumpleaños y retratos que necesitaba reunir su trabajo en un espacio propio. Desarrollé el sitio con ese objetivo.</p>
+              <p class="proyecto__descripcion">El sitio cuenta con una presentación personal y una galería organizada en 12 categorías, con cerca de 180 fotografías en total.</p>
+              <p class="proyecto__descripcion">Uno de los puntos principales del desarrollo fue optimizar la carga de las imágenes. Las fotografías originales llegaban a pesar entre 20 y 30 MB y tenían una resolución de hasta 8K. Las optimicé a Full HD, logrando que ninguna imagen supere 1 MB.</p>
+              <p class="proyecto__descripcion">Además, la galería está preparada para cargar únicamente las fotografías de la categoría que se está visualizando, evitando cargar todas las imágenes del sitio al mismo tiempo.</p>
+              <p class="proyecto__descripcion">El sitio también incluye formulario de contacto y accesos directos a WhatsApp, Instagram y Facebook.</p>
+              <ul class="proyecto__stack" translate="no">
+                <li class="proyecto__stack-item">HTML</li>
+                <li class="proyecto__stack-item">CSS</li>
+                <li class="proyecto__stack-item">JavaScript</li>
+              </ul>
+              <p class="proyecto__acciones">
+                <a class="btn btn--secundario" href="https://simplementemomentos.com.ar/" target="_blank" rel="noopener"
+                   aria-label="Ver el sitio de Simplemente Momentos PH (abre en una pestaña nueva)">Ver sitio</a>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <!-- 4. Sobre mí: formación y forma de trabajar -->
-    <section class="sobre-mi" id="sobre-mi">
-      <h2 class="sobre-mi__titulo">Sobre mí</h2>
-      <p class="sobre-mi__texto">Soy Lautaro Bitti, desarrollador de software, me interesa crear soluciones que hagan más simples las tareas del día a día.</p>
-      <p class="sobre-mi__texto">Me gusta entender primero cómo funciona un negocio o una organización y, a partir de eso, desarrollar herramientas que se adapten a sus necesidades. La mayoría de los sistemas que hice nacieron del mismo lugar: información importante repartida entre planillas, papeles y mensajes, sin un lugar único donde consultarla. Trabajé en sistemas de gestión, automatización y organización de información, buscando que sean prácticos, claros y fáciles de usar.</p>
-      <p class="sobre-mi__texto">Trabajo principalmente con Python, Flask y PostgreSQL, aunque también utilizo distintas herramientas según lo que requiera cada proyecto. Para mí, desarrollar software no es solamente escribir código, sino entender un problema, encontrar una solución que tenga sentido y seguir mejorándola con el tiempo.</p>
-    </section>
+    <!-- Sobre mí y Tecnologías comparten banda: es el bloque de perfil, el que
+         mira el que evalúa el lado técnico -->
+    <div class="banda">
+      <section class="seccion sobre-mi" id="sobre-mi">
+        <div class="seccion__interior">
+          <h2 class="sobre-mi__titulo">Sobre mí</h2>
+          <p class="sobre-mi__lead">Soy Lautaro Bitti, desarrollador de software, me interesa crear soluciones que hagan más simples las tareas del día a día.</p>
+          <p class="sobre-mi__texto">Me gusta entender primero cómo funciona un negocio o una organización y, a partir de eso, desarrollar herramientas que se adapten a sus necesidades. La mayoría de los sistemas que hice nacieron del mismo lugar: información importante repartida entre planillas, papeles y mensajes, sin un lugar único donde consultarla. Trabajé en sistemas de gestión, automatización y organización de información, buscando que sean prácticos, claros y fáciles de usar.</p>
+          <p class="sobre-mi__texto">Trabajo principalmente con Python, Flask y PostgreSQL, aunque también utilizo distintas herramientas según lo que requiera cada proyecto. Para mí, desarrollar software no es solamente escribir código, sino entender un problema, encontrar una solución que tenga sentido y seguir mejorándola con el tiempo.</p>
+        </div>
+      </section>
 
-    <!-- 5. Contacto: links a WhatsApp e Instagram -->
-    <section class="contacto" id="contacto">
-      <h2 class="contacto__titulo">Contacto</h2>
-      <p class="contacto__texto">¿Tenés una idea, un problema o algo que quieras mejorar? Contame y vemos cómo resolverlo.</p>
-      <a class="btn btn--secundario contacto__link contacto__link--whatsapp" href="#">Escribime por WhatsApp</a>
-      <a class="btn btn--secundario contacto__link contacto__link--instagram" href="#">Seguime en Instagram</a>
+      <section class="seccion tecnologias" id="tecnologias">
+        <div class="seccion__interior">
+          <h2 class="tecnologias__titulo">Tecnologías</h2>
+
+          <div class="tecnologias__grupos">
+            <div class="tecnologias__grupo">
+              <h3 class="tecnologias__etiqueta">Backend</h3>
+              <ul class="tecnologias__lista" translate="no">
+                <li class="tecnologias__item">Python</li>
+                <li class="tecnologias__item">Flask</li>
+                <li class="tecnologias__item">PostgreSQL</li>
+              </ul>
+            </div>
+
+            <div class="tecnologias__grupo">
+              <h3 class="tecnologias__etiqueta">Frontend</h3>
+              <ul class="tecnologias__lista" translate="no">
+                <li class="tecnologias__item">HTML</li>
+                <li class="tecnologias__item">CSS</li>
+                <li class="tecnologias__item">JavaScript</li>
+              </ul>
+            </div>
+
+            <div class="tecnologias__grupo">
+              <h3 class="tecnologias__etiqueta">Herramientas</h3>
+              <ul class="tecnologias__lista" translate="no">
+                <li class="tecnologias__item">Git</li>
+                <li class="tecnologias__item">Railway</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 5. Contacto: cierre centrado, cambia el eje después de toda la página
+         alineada a la izquierda -->
+    <section class="seccion contacto" id="contacto">
+      <div class="seccion__interior">
+        <h2 class="contacto__titulo">Contacto</h2>
+        <p class="contacto__texto">¿Tenés una idea, un problema o algo que quieras mejorar? Contame y vemos cómo resolverlo.</p>
+
+        <div class="contacto__acciones">
+          <a class="btn btn--primario contacto__link" href="https://wa.me/5493471670231" target="_blank" rel="noopener">Escribime por WhatsApp</a>
+          <a class="btn btn--secundario contacto__link" href="#">Seguime en Instagram</a>
+          <a class="btn btn--secundario contacto__link" href="https://github.com/BittiLautaro" target="_blank" rel="noopener">Ver mi GitHub</a>
+        </div>
+
+        <p class="contacto__ubicacion">Las Parejas, Santa Fe · Trabajo remoto para todo el país</p>
+      </div>
     </section>
 
   </main>
 
   <footer class="footer">
-    <p class="footer__texto">© 2026 Lautaro Bitti · Desarrollo de Software</p>
+    <div class="seccion__interior">
+      <p class="footer__texto">© 2026 Lautaro Bitti · Desarrollo de Software</p>
+    </div>
   </footer>
 
   <script src="assets/js/main.js"></script>

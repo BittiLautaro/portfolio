@@ -90,26 +90,57 @@ button {
   --color-primario: #2563EB;  /* fill de botones */
   --color-primario-hover: #1D4ED8;
 
+  /* Mismo azul del acento, al 12%: relleno de hover de los botones
+     de contorno. No es un color nuevo, es el mismo atenuado. */
+  --color-acento-suave: rgba(59, 130, 246, 0.12);
+
   /* Tipografía */
   --fuente-titulos: 'Space Grotesk', system-ui, sans-serif;
   --fuente-principal: 'Inter', system-ui, sans-serif;
+
+  /* Layout y ritmo. Un solo lugar donde se define el aire entre
+     secciones, así el ritmo de la página no se desarma sección
+     por sección. */
+  --ancho-maximo: 1120px;
+  --ancho-texto: 68ch;
+  --gutter: 1.25rem;
+  --espacio-seccion: 4rem;
+  --alto-header: 7rem;
+
+  --radio: 12px;
+  --radio-chico: 6px;
+  --transicion: 160ms ease;
 }
 
 
 /* ====================================
-   TIPOGRAFÍA BASE
+   BASE
    Mobile-first: estos valores son para celular
    ==================================== */
 
 html {
   font-size: 100%; /* 1rem = 16px, respeta la config del navegador/usuario */
+  scroll-behavior: smooth;
+
+  /* Le avisa al navegador que la página es oscura: barras de scroll,
+     controles nativos y el fondo del overscroll dejan de venir claros */
+  color-scheme: dark;
+}
+
+/* En celular: saca el retardo de 300ms del doble tap y define el
+   destello del toque en vez de dejar el gris translúcido por defecto */
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: var(--color-acento-suave);
 }
 
 body {
   font-family: var(--fuente-principal);
   color: var(--color-texto);
   background-color: var(--color-fondo);
-  line-height: 1.5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -118,7 +149,9 @@ h3,
 h4 {
   font-family: var(--fuente-titulos);
   font-weight: 700; /* coincide con el único peso que cargamos, evita el bold falso del navegador */
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 h1 {
@@ -134,7 +167,110 @@ h3 {
 }
 
 h4 {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+/* Link de salto: invisible hasta que alguien navega con teclado */
+.salto-contenido {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-primario);
+  color: #ffffff;
+  border-radius: 0 0 var(--radio-chico) 0;
+}
+
+.salto-contenido:focus {
+  left: 0;
+}
+
+
+/* ====================================
+   LAYOUT
+   .seccion pone el ritmo vertical, .seccion__interior limita
+   el ancho. Están separados a propósito: así una sección puede
+   tener fondo a todo el ancho y contenido contenido.
+   ==================================== */
+
+.seccion {
+  padding-block: var(--espacio-seccion);
+  scroll-margin-top: var(--alto-header);
+}
+
+/* El max() con env() protege el contenido del notch y las esquinas
+   redondeadas cuando el celular se usa apaisado */
+.seccion__interior {
+  max-width: var(--ancho-maximo);
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+
+/* Banda de superficie: agrupa "Sobre mí" y "Tecnologías" en un
+   solo bloque visual —que es además el bloque que mira quien
+   evalúa el perfil técnico— y le da respiro al ritmo de la página */
+.banda {
+  background-color: var(--color-superficie);
+  border-block: 1px solid var(--color-borde);
+}
+
+.banda .seccion + .seccion {
+  padding-top: 0;
+}
+
+
+/* ====================================
+   BOTONES
+   Tres variantes, cada una con un trabajo distinto:
+   primario = la acción que queremos que pase,
+   secundario = acciones reales pero laterales,
+   fantasma = navegación interna, sin peso visual.
+   ==================================== */
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--radio-chico);
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  text-align: center;
+  transition: background-color var(--transicion), border-color var(--transicion),
+    color var(--transicion);
+}
+
+/* --color-primario es un fill, no un color de texto: el blanco
+   funciona en los dos estados (5.2:1 en reposo, 6.7:1 en hover),
+   sin necesidad de cambiar el color del texto entre estados */
+.btn--primario {
+  background-color: var(--color-primario);
+  color: #ffffff;
+}
+
+.btn--primario:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.btn--secundario {
+  border-color: var(--color-acento);
+  color: var(--color-acento);
+}
+
+.btn--secundario:hover {
+  background-color: var(--color-acento-suave);
+}
+
+.btn--fantasma {
+  border-color: var(--color-borde);
+  color: var(--color-texto);
+}
+
+.btn--fantasma:hover {
+  border-color: var(--color-secundario);
+  background-color: var(--color-superficie);
 }
 
 
@@ -145,33 +281,87 @@ h4 {
 .header {
   position: sticky;
   top: 0;
+  z-index: 20;
   background-color: var(--color-fondo);
-  z-index: 10;
+  border-bottom: 1px solid var(--color-borde);
 }
 
-.nav__marca {
-  display: block;
-  text-align: center;
-  padding: 0.75rem 1rem 0;
-  font-family: var(--fuente-titulos);
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-/* list-style: none acá, no global, para no sacarle a Safari/VoiceOver
-   la semántica de lista en <ul> que no son el nav (ej: futuras listas
-   de tecnologías dentro de una ficha de proyecto) */
-.nav__menu {
+.header__interior {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
+  gap: 0.125rem 1rem;
+  max-width: var(--ancho-maximo);
+  margin-inline: auto;
+  padding-block: 0.625rem;
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+
+.header__marca {
+  margin-right: auto;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* En celular el header tiene que ser una barra, no un cartel:
+   queda el nombre y se esconde el rol, que ya está en el <title>,
+   en el hero y en el footer */
+.header__marca-rol {
+  display: none;
+}
+
+.header__github {
+  padding: 0.3125rem 0.625rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-chico);
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  color: var(--color-texto);
+  transition: border-color var(--transicion), color var(--transicion);
+}
+
+.header__github:hover {
+  border-color: var(--color-acento);
+  color: var(--color-acento);
+}
+
+/* El menú va en su propia fila y scrollea en horizontal si no entra:
+   con 4 anclas es preferible a partirlo en dos líneas o a esconderlo
+   detrás de un botón que necesitaría JS */
+.nav {
+  flex-basis: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__menu {
+  display: flex;
+  gap: 0.125rem;
   list-style: none;
 }
 
 .nav__link {
-  display: inline-block;
-  padding: 1rem 0.75rem;
-  font-size: 0.9rem;
+  display: block;
+  padding: 0.375rem 0.5rem;
+  border-radius: var(--radio-chico);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-secundario);
+  white-space: nowrap;
+  transition: color var(--transicion), background-color var(--transicion);
+}
+
+.nav__link:hover {
+  color: var(--color-texto);
+  background-color: var(--color-superficie);
 }
 
 
@@ -180,134 +370,168 @@ h4 {
    ==================================== */
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
-  padding: 3rem 1.5rem;
+  padding-top: calc(var(--espacio-seccion) - 0.5rem);
+}
+
+.hero__titulo {
+  max-width: 22ch;
+  font-size: 2.125rem;
+}
+
+.hero__claim {
+  margin-top: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .hero__subtitulo {
+  margin-top: 0.75rem;
+  max-width: 58ch;
   color: var(--color-secundario);
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-}
-
-/* --color-primario es un fill, no un color de texto: el blanco
-   funciona en los dos estados (5.2:1 en reposo, 6.7:1 en hover),
-   sin necesidad de cambiar el color del texto entre estados */
-.btn--primario {
-  background-color: var(--color-primario);
-  color: #ffffff;
-  transition: background-color 0.15s ease;
-}
-
-.btn--primario:hover,
-.btn--primario:focus-visible {
-  background-color: var(--color-primario-hover);
+.hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
 }
 
 
 /* ====================================
    SERVICIOS
-   Mobile-first: las dos tarjetas van apiladas.
-   El layout en fila para desktop se define más adelante,
-   cuando se trabajen las media queries.
+   Sin tarjeta: dos columnas de texto con un filete arriba.
+   Las tarjetas quedan reservadas para los proyectos, que son
+   los que tienen que llevarse la atención.
    ==================================== */
 
-.servicios {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 3rem 1.5rem;
+.servicios__titulo {
+  margin-bottom: 2rem;
 }
 
-.servicios__titulo {
-  text-align: center;
+.servicios__lista {
+  display: grid;
+  gap: 2rem;
 }
 
 .servicio {
-  padding: 1.5rem;
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
-  border-radius: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-borde);
 }
 
 .servicio__titulo {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .servicio__descripcion {
+  max-width: 60ch;
   color: var(--color-secundario);
 }
 
 
 /* ====================================
    PROYECTOS
-   Mobile-first: todo apilado en una columna.
-   El grid de varias columnas para desktop se define más
-   adelante, junto con el resto de las media queries.
+   Cada ficha es una fila de caso: captura + historia. El primer
+   párrafo sube a resumen (tamaño y color plenos) y el resto baja
+   a detalle, para que se pueda escanear en diagonal.
    ==================================== */
 
-.proyectos {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding: 3rem 1.5rem;
-}
-
 .proyectos__titulo {
-  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.categoria-proyectos {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.categoria-proyectos + .categoria-proyectos {
+  margin-top: 3.5rem;
 }
 
 .categoria-proyectos__titulo {
-  text-align: center;
+  margin-bottom: 1.25rem;
+  color: var(--color-secundario);
 }
 
-/* Misma tarjeta que .servicio, mismo lenguaje visual para todo
-   lo que sea "una unidad de contenido dentro de una lista" */
 .proyecto {
-  padding: 1.5rem;
   background-color: var(--color-superficie);
   border: 1px solid var(--color-borde);
-  border-radius: 0.5rem;
+  border-radius: var(--radio);
+  overflow: hidden;
+  transition: border-color var(--transicion);
+}
+
+.proyecto + .proyecto {
+  margin-top: 1.5rem;
+}
+
+/* Marca la ficha cuando el foco de teclado entra en ella (el botón
+   "Ver sitio"), para no perder de vista de qué proyecto se trata */
+.proyecto:focus-within {
+  border-color: var(--color-acento);
+}
+
+.proyecto__media {
+  background-color: var(--color-fondo);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+/* height: auto es imprescindible: los atributos width/height del <img>
+   (que están para reservar el espacio y evitar saltos de layout) actúan
+   como hint de presentación, y sin esto el height del atributo le gana
+   al aspect-ratio y la imagen se amplía para llenar una caja altísima */
+.proyecto__imagen {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* La captura de terminal es mucho más apaisada que las demás y
+   tiene el texto arriba a la izquierda: recortarla centrada le
+   comía el contenido */
+.proyecto__imagen--terminal {
+  object-fit: contain;
+  background-color: #0C0C0C;
+}
+
+.proyecto__cuerpo {
+  padding: 1.5rem;
 }
 
 .proyecto__titulo {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.proyecto__resumen {
+  margin-bottom: 1rem;
+  max-width: 62ch;
+  font-size: 1.0625rem;
+  line-height: 1.55;
 }
 
 .proyecto__descripcion {
+  margin-bottom: 0.75rem;
+  max-width: 64ch;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   color: var(--color-secundario);
-  margin-bottom: 1rem;
 }
 
-/* Lista de tecnologías: se le saca la viñeta acá mismo, igual
-   que en .nav__menu, sin tocar el reset global */
 .proyecto__stack {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 1.25rem;
   list-style: none;
 }
 
 .proyecto__stack-item {
-  font-size: 0.85rem;
-  color: var(--color-secundario);
-  padding: 0.25rem 0.6rem;
+  padding: 0.25rem 0.625rem;
   border: 1px solid var(--color-borde);
   border-radius: 999px;
+  font-size: 0.8125rem;
+  color: var(--color-secundario);
+}
+
+.proyecto__acciones {
+  margin-top: 1.25rem;
 }
 
 
@@ -315,63 +539,103 @@ h4 {
    SOBRE MÍ
    ==================================== */
 
-.sobre-mi {
-  padding: 3rem 1.5rem;
-}
-
 .sobre-mi__titulo {
-  text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Sin color propio: hereda var(--color-texto) del body.
-   Es un párrafo de lectura, no un texto secundario. Son varios
-   <p>, uno por párrafo del texto original: el margin-bottom acá
-   es lo que separa a cada uno del siguiente. */
+.sobre-mi__lead {
+  max-width: var(--ancho-texto);
+  margin-bottom: 1.25rem;
+  font-size: 1.125rem;
+}
+
 .sobre-mi__texto {
-  line-height: 1.6;
+  max-width: var(--ancho-texto);
   margin-bottom: 1rem;
+  line-height: 1.75;
+  color: var(--color-secundario);
 }
 
-.sobre-mi__texto:last-child {
-  margin-bottom: 0;
+
+/* ====================================
+   TECNOLOGÍAS
+   Bloque tranquilo a propósito: sirve a quien evalúa el perfil
+   técnico, pero no tiene que competir con los proyectos.
+   ==================================== */
+
+.tecnologias__titulo {
+  margin-bottom: 1.5rem;
+}
+
+.tecnologias__grupos {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.tecnologias__etiqueta {
+  margin-bottom: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--color-secundario);
+}
+
+.tecnologias__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+/* Fichas oscuras sobre la banda clara: la inversión del contraste
+   de las tarjetas de proyecto, que son claras sobre fondo oscuro */
+.tecnologias__item {
+  padding: 0.4rem 0.75rem;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-chico);
+  font-size: 0.9375rem;
 }
 
 
 /* ====================================
    CONTACTO
-   Los botones son btn--secundario con --color-acento: WhatsApp
-   e Instagram todavía no tienen link real (href="#" provisorio).
+   Centrado: es el único bloque centrado de la página y por eso
+   funciona como cierre, después de todo el recorrido alineado
+   a la izquierda.
    ==================================== */
 
-.contacto {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 3rem 1.5rem;
+.contacto__titulo,
+.contacto__texto,
+.contacto__ubicacion {
   text-align: center;
 }
 
 .contacto__titulo {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .contacto__texto {
+  max-width: 52ch;
+  margin-inline: auto;
+  margin-bottom: 2rem;
   color: var(--color-secundario);
 }
 
-.contacto__link {
-  display: block;
-  width: 100%;
-  max-width: 320px;
-  text-align: center;
+.contacto__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-.btn--secundario {
-  background-color: transparent;
-  border: 1px solid var(--color-acento);
-  color: var(--color-acento);
+.contacto__link {
+  width: 100%;
+  max-width: 22rem;
+}
+
+.contacto__ubicacion {
+  margin-top: 2rem;
+  font-size: 0.9375rem;
+  color: var(--color-secundario);
 }
 
 
@@ -380,76 +644,110 @@ h4 {
    ==================================== */
 
 .footer {
-  padding: 1.5rem;
+  padding-block: 2rem;
   border-top: 1px solid var(--color-borde);
-  text-align: center;
 }
 
 .footer__texto {
+  font-size: 0.875rem;
   color: var(--color-secundario);
-  font-size: 0.85rem;
 }
 
 
 /* ====================================
    MEDIA QUERIES
-   Todo lo de arriba es la base mobile. Dos breakpoints,
-   elegidos mirando las 5 secciones juntas:
+   Dos breakpoints, elegidos mirando el conjunto:
 
-   - 768px (tablet): ya sobra ancho para poner en fila los
-     bloques que van de a pares (las 2 tarjetas de Servicios,
-     los 2 botones de Contacto) y para ponerle un límite de
-     ancho de línea al texto de lectura (Hero, Sobre mí), que
-     si no queda estirado de punta a punta de la pantalla.
+   - 768px (tablet): entra el layout de dos columnas —las fichas
+     pasan a fila (captura + texto), servicios y tecnologías se
+     abren— y el header entra en una sola línea.
 
-   - 1024px (desktop): recién acá hay espacio de sobra como
-     para que Proyectos —la sección más densa, hasta 5 fichas
-     en una sola categoría— pase a grid de varias columnas.
-     Aprovecho el mismo salto para subir un escalón la
-     tipografía de los títulos.
+   - 1024px (desktop): sube la escala tipográfica y el aire entre
+     secciones, que en pantalla grande necesita más respiro.
    ==================================== */
 
 @media (min-width: 768px) {
-  .hero {
-    max-width: 700px;
-    margin-inline: auto;
+  :root {
+    --gutter: 2rem;
+    --espacio-seccion: 5.5rem;
+    --alto-header: 5rem;
   }
 
-  .servicios {
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 900px;
-    margin-inline: auto;
+  .header__interior {
+    flex-wrap: nowrap;
+    padding-block: 0.875rem;
   }
 
-  /* El título es hijo directo del flex container, igual que las
-     2 tarjetas: sin esto quedaría al lado de ellas en vez de arriba */
-  .servicios__titulo {
-    flex-basis: 100%;
+  .header__marca {
+    font-size: 1rem;
   }
 
-  .servicio {
-    flex: 1;
+  .header__github {
+    order: 2;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
   }
 
-  .sobre-mi {
-    max-width: 700px;
-    margin-inline: auto;
+  /* En el DOM GitHub va antes del menú para que en celular comparta
+     fila con la marca; en una sola fila el orden visual vuelve a ser
+     marca · menú · GitHub */
+  .nav {
+    order: 1;
+    flex-basis: auto;
+    overflow: visible;
   }
 
-  .contacto {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 600px;
-    margin-inline: auto;
+  .nav__menu {
+    gap: 0.25rem;
   }
 
-  /* Mismo caso que .servicios__titulo: sin esto el título y el
-     texto quedarían al lado de los botones en vez de arriba */
-  .contacto__titulo,
-  .contacto__texto {
-    flex-basis: 100%;
+  .nav__link {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.9375rem;
+  }
+
+  .hero__titulo {
+    font-size: 3rem;
+  }
+
+  .hero__claim {
+    font-size: 1.3125rem;
+  }
+
+  .hero__subtitulo {
+    font-size: 1.0625rem;
+  }
+
+  .servicios__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  /* Fila de caso: la captura ocupa poco menos de la mitad. La
+     imagen mantiene su proporción arriba y el panel oscuro llena
+     el resto de la altura —estirar la imagen a toda la altura de
+     una ficha larga la ampliaba tanto que le comía los costados */
+  .proyecto {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  .proyecto__media {
+    border-bottom: 0;
+    border-right: 1px solid var(--color-borde);
+  }
+
+  .proyecto__cuerpo {
+    padding: 1.75rem;
+  }
+
+  .proyecto + .proyecto {
+    margin-top: 2rem;
+  }
+
+  .tecnologias__grupos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
   }
 
   .contacto__link {
@@ -458,12 +756,16 @@ h4 {
 }
 
 @media (min-width: 1024px) {
+  :root {
+    --espacio-seccion: 7rem;
+  }
+
   h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.125rem;
   }
 
   h3 {
@@ -474,37 +776,37 @@ h4 {
     font-size: 1.25rem;
   }
 
-  .hero,
-  .servicios,
-  .proyectos,
-  .sobre-mi,
-  .contacto {
-    padding-block: 5rem;
+  /* El rol completo aparece recién acá: a 768px la marca entera
+     parte la barra en dos líneas */
+  .header__marca-rol {
+    display: inline;
   }
 
-  .proyectos {
-    max-width: 1100px;
-    margin-inline: auto;
+  .hero__titulo {
+    font-size: 3.5rem;
   }
 
-  /* Probé multi-column acá para evitar huecos entre filas de
-     distinta altura, pero rompe el orden de lectura: con fichas
-     de largo tan variable, el algoritmo de balanceo agrupa 2
-     fichas cortas en una columna y salta la fila, así que la
-     ficha 2 terminaba visualmente debajo de la 1 mientras la 3
-     ya aparecía en la columna siguiente — se pierde la secuencia
-     1 a 5. Vuelvo a grid (orden de lectura correcto, fila por
-     fila) y dejo el align-items en su default (stretch): las
-     fichas cortas de una fila se estiran a la altura de la más
-     alta en vez de dejar un hueco debajo. */
-  .categoria-proyectos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  .hero__claim {
+    font-size: 1.375rem;
   }
 
-  /* El título de la categoría es hijo directo del grid: sin esto
-     ocuparía una sola columna en vez de ir arriba de todo */
-  .categoria-proyectos__titulo {
-    grid-column: 1 / -1;
+  .sobre-mi__lead {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* Respeta a quien pidió menos movimiento en el sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
