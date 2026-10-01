@@ -1,6 +1,5 @@
 /* ====================================
    RESET
-   Normaliza diferencias entre navegadores
    ==================================== */
 
 *,
@@ -11,13 +10,11 @@
   padding: 0;
 }
 
-/* Los links heredan color y no llevan subrayado por defecto */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Las imágenes nunca se desbordan del contenedor */
 img,
 picture,
 svg {
@@ -25,29 +22,31 @@ svg {
   max-width: 100%;
 }
 
-/* Botones sin estilos por defecto del navegador, para partir de cero */
 button {
   background: none;
   border: none;
   font: inherit;
+  color: inherit;
   cursor: pointer;
 }
 
-/* Foco de teclado explícito: en dark mode el outline azul por
-   defecto del navegador puede perderse contra el fondo oscuro */
 :focus-visible {
   outline: 2px solid var(--color-acento);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+a,
+button,
+summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: var(--color-acento-suave);
 }
 
 
 /* ====================================
    FUENTES
-   Self-hosted (no Google Fonts en runtime): el sitio recibe
-   tráfico pago desde mobile, no queremos depender de un
-   tercero para el render del texto. Un solo peso por fuente
-   (la web es en español, alcanza con el subset latin) para
-   no sumar peso de más.
+   Self-hosted: el sitio recibe tráfico desde mobile y no queremos
+   depender de un tercero para el render. Un peso por fuente.
    ==================================== */
 
 @font-face {
@@ -69,70 +68,59 @@ button {
 
 /* ====================================
    VARIABLES
-   Dark mode profesional: sin negro ni blanco puro (fatiga
-   visual, se ve barato). La jerarquía se construye con
-   niveles de luminosidad —fondo / superficie / borde—,
-   no con sombras.
+   Dark sin negro ni blanco puro. El azul aparece en pocos lugares y
+   siempre con un trabajo: etiqueta de sección, marco de las capturas,
+   opción activa del selector, nav activo y botones.
    ==================================== */
 
 :root {
-  /* Colores */
   --color-fondo: #0F1115;
   --color-superficie: #181B21;
   --color-borde: #262A33;
+  --color-borde-hover: #3A404C;
   --color-texto: #E8EAED;
   --color-secundario: #9AA0AA;
 
-  /* Un solo azul no puede cumplir dos roles: como texto sobre fondo
-     oscuro necesita ser claro, como fill de botón con texto blanco
-     necesita ser oscuro. Por eso son dos tokens separados: */
-  --color-acento: #3B82F6;    /* texto, links, iconos, focus ring */
-  --color-primario: #2563EB;  /* fill de botones */
+  --color-acento: #3B82F6;
+  --color-primario: #2563EB;
   --color-primario-hover: #1D4ED8;
-
-  /* Mismo azul del acento, al 12%: relleno de hover de los botones
-     de contorno. No es un color nuevo, es el mismo atenuado. */
   --color-acento-suave: rgba(59, 130, 246, 0.12);
 
-  /* Tipografía */
+  /* Estado "disponible". Verde propio y no el azul de marca: el azul ya
+     significa "interactivo", el verde significa "estado". 8.3:1 sobre
+     --color-fondo. */
+  --color-disponible: #22C55E;
+
   --fuente-titulos: 'Space Grotesk', system-ui, sans-serif;
   --fuente-principal: 'Inter', system-ui, sans-serif;
 
-  /* Layout y ritmo. Un solo lugar donde se define el aire entre
-     secciones, así el ritmo de la página no se desarma sección
-     por sección. */
-  --ancho-maximo: 1120px;
-  --ancho-texto: 68ch;
+  --ancho-maximo: 1100px;
   --gutter: 1.25rem;
-  --espacio-seccion: 4rem;
-  --alto-header: 7rem;
+  --marco: 10px;
 
-  --radio: 12px;
-  --radio-chico: 6px;
-  --transicion: 160ms ease;
+  /* Barra flotante: separada del borde de la pantalla. --alto-header es
+     hasta dónde llega la barra más un poco de aire, y es lo que usan el
+     scroll-margin de las anclas y el padding del hero. */
+  --header-margen: 0.625rem;
+  --header-alto: 3.5rem;
+  --alto-header: calc(var(--header-margen) + var(--header-alto) + 0.5rem);
+
+  --radio-barra: 14px;
+  --radio-tarjeta: 8px;
+
+  --transicion: 180ms ease;
 }
 
 
 /* ====================================
    BASE
-   Mobile-first: estos valores son para celular
    ==================================== */
 
 html {
-  font-size: 100%; /* 1rem = 16px, respeta la config del navegador/usuario */
+  font-size: 100%;
   scroll-behavior: smooth;
-
-  /* Le avisa al navegador que la página es oscura: barras de scroll,
-     controles nativos y el fondo del overscroll dejan de venir claros */
+  scroll-padding-top: calc(var(--alto-header) + 1rem);
   color-scheme: dark;
-}
-
-/* En celular: saca el retardo de 300ms del doble tap y define el
-   destello del toque en vez de dejar el gris translúcido por defecto */
-a,
-button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: var(--color-acento-suave);
 }
 
 body {
@@ -145,33 +133,14 @@ body {
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   font-family: var(--fuente-titulos);
-  font-weight: 700; /* coincide con el único peso que cargamos, evita el bold falso del navegador */
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
-h1 {
-  font-size: 2rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-}
-
-h4 {
-  font-size: 1.125rem;
-  letter-spacing: -0.01em;
-}
-
-/* Link de salto: invisible hasta que alguien navega con teclado */
 .salto-contenido {
   position: absolute;
   top: 0;
@@ -180,7 +149,6 @@ h4 {
   padding: 0.75rem 1rem;
   background-color: var(--color-primario);
   color: #ffffff;
-  border-radius: 0 0 var(--radio-chico) 0;
 }
 
 .salto-contenido:focus {
@@ -190,51 +158,64 @@ h4 {
 
 /* ====================================
    LAYOUT
-   .seccion pone el ritmo vertical, .seccion__interior limita
-   el ancho. Están separados a propósito: así una sección puede
-   tener fondo a todo el ancho y contenido contenido.
    ==================================== */
 
-.seccion {
-  padding-block: var(--espacio-seccion);
+.bloque {
+  padding-block: 4.5rem;
   scroll-margin-top: var(--alto-header);
 }
 
-/* El max() con env() protege el contenido del notch y las esquinas
-   redondeadas cuando el celular se usa apaisado */
-.seccion__interior {
+.bloque__interior {
   max-width: var(--ancho-maximo);
   margin-inline: auto;
   padding-left: max(var(--gutter), env(safe-area-inset-left));
   padding-right: max(var(--gutter), env(safe-area-inset-right));
 }
 
-/* Banda de superficie: agrupa "Sobre mí" y "Tecnologías" en un
-   solo bloque visual —que es además el bloque que mira quien
-   evalúa el perfil técnico— y le da respiro al ritmo de la página */
-.banda {
-  background-color: var(--color-superficie);
-  border-block: 1px solid var(--color-borde);
+/* Etiqueta chica + título grande: la etiqueta dice en qué sección
+   estás (coincide con el nav) y el título dice qué ofrece */
+.cabecera {
+  margin-bottom: 2.5rem;
 }
 
-.banda .seccion + .seccion {
-  padding-top: 0;
+.cabecera__etiqueta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+  font-family: var(--fuente-titulos);
+  font-size: 0.9375rem;
+  color: var(--color-acento);
+}
+
+.cabecera__etiqueta::after {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background-color: var(--color-acento);
+}
+
+.cabecera__titulo {
+  max-width: 20ch;
+  font-size: clamp(1.875rem, 5.5vw, 2.75rem);
+}
+
+.cabecera__bajada {
+  max-width: 56ch;
+  margin-top: 1rem;
+  color: var(--color-secundario);
 }
 
 
 /* ====================================
    BOTONES
-   Tres variantes, cada una con un trabajo distinto:
-   primario = la acción que queremos que pase,
-   secundario = acciones reales pero laterales,
-   fantasma = navegación interna, sin peso visual.
    ==================================== */
 
 .btn {
   display: inline-block;
-  padding: 0.75rem 1.25rem;
+  padding: 0.875rem 1.5rem;
   border: 1px solid transparent;
-  border-radius: var(--radio-chico);
+  border-radius: 4px;
   font-size: 0.9375rem;
   line-height: 1.2;
   text-align: center;
@@ -242,9 +223,6 @@ h4 {
     color var(--transicion);
 }
 
-/* --color-primario es un fill, no un color de texto: el blanco
-   funciona en los dos estados (5.2:1 en reposo, 6.7:1 en hover),
-   sin necesidad de cambiar el color del texto entre estados */
 .btn--primario {
   background-color: var(--color-primario);
   color: #ffffff;
@@ -263,105 +241,176 @@ h4 {
   background-color: var(--color-acento-suave);
 }
 
-.btn--fantasma {
-  border-color: var(--color-borde);
-  color: var(--color-texto);
-}
-
-.btn--fantasma:hover {
-  border-color: var(--color-secundario);
-  background-color: var(--color-superficie);
-}
-
 
 /* ====================================
-   HEADER
+   HEADER Y NAV
    ==================================== */
 
+/* El contenedor ocupa todo el ancho pero no captura clics: sólo la
+   barra de adentro. Así los márgenes laterales no bloquean la página. */
 .header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--header-margen);
+  left: 0;
+  right: 0;
   z-index: 20;
-  background-color: var(--color-fondo);
-  border-bottom: 1px solid var(--color-borde);
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+  pointer-events: none;
 }
 
+/* La barra es un bloque redondeado y separado de los bordes. Su ancho
+   máximo coincide con el del contenido de las secciones, así los bordes
+   de la barra y los del contenido quedan alineados. */
 .header__interior {
+  position: relative;
+  pointer-events: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.125rem 1rem;
-  max-width: var(--ancho-maximo);
+  align-content: center;
+  justify-content: space-between;
+  min-height: var(--header-alto);
+  max-width: calc(var(--ancho-maximo) - 2 * var(--gutter));
   margin-inline: auto;
-  padding-block: 0.625rem;
-  padding-left: max(var(--gutter), env(safe-area-inset-left));
-  padding-right: max(var(--gutter), env(safe-area-inset-right));
+  padding-inline: 0.75rem;
+}
+
+/* El fondo translúcido, el borde y el desenfoque van en un pseudo-
+   elemento: backdrop-filter en la barra la convertiría en containing
+   block y el panel del menú (position: fixed) quedaría atrapado adentro */
+.header__interior::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-barra);
+  background-color: rgba(15, 17, 21, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .header__marca {
-  margin-right: auto;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
   font-family: var(--fuente-titulos);
-  font-weight: 700;
-  font-size: 0.9375rem;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
 }
 
-/* En celular el header tiene que ser una barra, no un cartel:
-   queda el nombre y se esconde el rol, que ya está en el <title>,
-   en el hero y en el footer */
-.header__marca-rol {
+/* Espacio para la foto de perfil. Por ahora son las iniciales; para usar
+   una foto se reemplaza el <span class="avatar__iniciales"> del HTML por
+   <img class="avatar__imagen" src="..." alt="">. No hay que tocar CSS. */
+.avatar {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-acento);
+  border-radius: 50%;
+  background-color: var(--color-acento-suave);
+  overflow: hidden;
+}
+
+.avatar__iniciales {
+  font-family: var(--fuente-titulos);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--color-texto);
+}
+
+.avatar__imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav__boton {
+  display: none; /* sólo con JS */
+  position: relative;
+  z-index: 2;
+  padding: 0.5rem 0.25rem;
+  font-size: 0.9375rem;
+  color: var(--color-secundario);
+}
+
+.nav__boton:hover {
+  color: var(--color-texto);
+}
+
+.nav__boton-cerrar {
   display: none;
 }
 
-.header__github {
-  padding: 0.3125rem 0.625rem;
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio-chico);
-  font-size: 0.8125rem;
-  line-height: 1.2;
-  color: var(--color-texto);
-  transition: border-color var(--transicion), color var(--transicion);
+.nav__boton[aria-expanded="true"] .nav__boton-abrir {
+  display: none;
 }
 
-.header__github:hover {
-  border-color: var(--color-acento);
-  color: var(--color-acento);
+.nav__boton[aria-expanded="true"] .nav__boton-cerrar {
+  display: inline;
 }
 
-/* El menú va en su propia fila y scrollea en horizontal si no entra:
-   con 4 anclas es preferible a partirlo en dos líneas o a esconderlo
-   detrás de un botón que necesitaría JS */
 .nav {
   flex-basis: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.nav::-webkit-scrollbar {
-  display: none;
 }
 
 .nav__menu {
   display: flex;
-  gap: 0.125rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 0.75rem 1rem;
   list-style: none;
 }
 
 .nav__link {
-  display: block;
-  padding: 0.375rem 0.5rem;
-  border-radius: var(--radio-chico);
-  font-size: 0.875rem;
-  line-height: 1.4;
+  display: inline-block;
+  padding: 0.375rem 0;
+  font-size: 1rem;
   color: var(--color-secundario);
-  white-space: nowrap;
-  transition: color var(--transicion), background-color var(--transicion);
+  transition: color var(--transicion);
 }
 
-.nav__link:hover {
+.nav__link:hover,
+.nav__link--activa {
   color: var(--color-texto);
-  background-color: var(--color-superficie);
+}
+
+.js .nav__boton {
+  display: inline-block;
+}
+
+.js .nav__menu {
+  display: none;
+}
+
+.js .nav--abierta .nav__menu {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: calc(var(--alto-header) + 1rem) max(var(--gutter), env(safe-area-inset-left)) 3rem;
+  background-color: var(--color-fondo);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.js .nav--abierta .nav__link {
+  padding: 0.5rem 0;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.5rem, 7vw, 2.25rem);
+  letter-spacing: -0.02em;
+}
+
+.nav-abierta {
+  overflow: hidden;
 }
 
 
@@ -369,23 +418,50 @@ h4 {
    HERO
    ==================================== */
 
+/* Sin imagen, el hero se sostiene con la tipografía: una sola columna,
+   todo alineado a la izquierda. El párrafo y el renglón de cifras
+   comparten el mismo ancho máximo (unos 60 caracteres por línea, cómodo
+   de leer), así el filete de las cifras no cruza el lado derecho vacío. */
 .hero {
-  padding-top: calc(var(--espacio-seccion) - 0.5rem);
+  --hero-ancho-texto: 32rem;
+
+  padding-top: calc(var(--alto-header) + 3.5rem);
+  padding-bottom: 3.5rem;
 }
 
+.hero__estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--color-secundario);
+}
+
+/* Punto de estado: no es decoración, señala disponibilidad */
+.hero__estado::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-disponible);
+}
+
+/* max-width en em: escala con el tamaño de fuente, así el corte queda
+   después de "Desarrollador" en todas las resoluciones sin usar <br> */
 .hero__titulo {
-  max-width: 22ch;
-  font-size: 2.125rem;
+  max-width: 8em;
+  font-size: clamp(2.5rem, 9vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
-.hero__claim {
-  margin-top: 1.25rem;
-  font-size: 1.125rem;
+.hero__detalle {
+  margin-top: 1.5rem;
 }
 
-.hero__subtitulo {
-  margin-top: 0.75rem;
-  max-width: 58ch;
+.hero__parrafo {
+  max-width: var(--hero-ancho-texto);
   color: var(--color-secundario);
 }
 
@@ -396,142 +472,242 @@ h4 {
   margin-top: 2rem;
 }
 
+.hero__cifras {
+  max-width: var(--hero-ancho-texto);
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-borde);
+  font-size: 0.875rem;
+  color: var(--color-secundario);
+}
+
 
 /* ====================================
    SERVICIOS
-   Sin tarjeta: dos columnas de texto con un filete arriba.
-   Las tarjetas quedan reservadas para los proyectos, que son
-   los que tienen que llevarse la atención.
    ==================================== */
 
-.servicios__titulo {
-  margin-bottom: 2rem;
+/* Tarjeta liviana, compartida por Servicios y Cómo trabajo: fondo un nivel
+   arriba del de la página, borde sutil, sin sombra. La profundidad sale de
+   la diferencia de fondo, no de una sombra proyectada. */
+.tarjeta {
+  padding: 1.375rem;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-tarjeta);
 }
 
 .servicios__lista {
   display: grid;
-  gap: 2rem;
+  gap: 1rem;
+  list-style: none;
 }
 
+/* Las cuatro tarjetas son iguales y sin azul: el azul del sitio significa
+   "interactivo o activo", y una tarjeta con azul fijo parecería elegida.
+   El único estado es un hover que aclara el borde, sólo donde hay cursor:
+   el borde conserva su grosor, así que nada cambia de tamaño ni se mueve. */
 .servicio {
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--color-borde);
+  transition: border-color var(--transicion);
+}
+
+@media (hover: hover) {
+  .servicio:hover {
+    border-color: var(--color-borde-hover);
+  }
 }
 
 .servicio__titulo {
   margin-bottom: 0.625rem;
+  font-size: 1.125rem;
 }
 
-.servicio__descripcion {
-  max-width: 60ch;
-  color: var(--color-secundario);
-}
-
-
-/* ====================================
-   PROYECTOS
-   Cada ficha es una fila de caso: captura + historia. El primer
-   párrafo sube a resumen (tamaño y color plenos) y el resto baja
-   a detalle, para que se pueda escanear en diagonal.
-   ==================================== */
-
-.proyectos__titulo {
-  margin-bottom: 2rem;
-}
-
-.categoria-proyectos + .categoria-proyectos {
-  margin-top: 3.5rem;
-}
-
-.categoria-proyectos__titulo {
-  margin-bottom: 1.25rem;
-  color: var(--color-secundario);
-}
-
-.proyecto {
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio);
-  overflow: hidden;
-  transition: border-color var(--transicion);
-}
-
-.proyecto + .proyecto {
-  margin-top: 1.5rem;
-}
-
-/* Marca la ficha cuando el foco de teclado entra en ella (el botón
-   "Ver sitio"), para no perder de vista de qué proyecto se trata */
-.proyecto:focus-within {
-  border-color: var(--color-acento);
-}
-
-.proyecto__media {
-  background-color: var(--color-fondo);
-  border-bottom: 1px solid var(--color-borde);
-}
-
-/* height: auto es imprescindible: los atributos width/height del <img>
-   (que están para reservar el espacio y evitar saltos de layout) actúan
-   como hint de presentación, y sin esto el height del atributo le gana
-   al aspect-ratio y la imagen se amplía para llenar una caja altísima */
-.proyecto__imagen {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 11;
-  object-fit: cover;
-  object-position: top center;
-}
-
-/* La captura de terminal es mucho más apaisada que las demás y
-   tiene el texto arriba a la izquierda: recortarla centrada le
-   comía el contenido */
-.proyecto__imagen--terminal {
-  object-fit: contain;
-  background-color: #0C0C0C;
-}
-
-.proyecto__cuerpo {
-  padding: 1.5rem;
-}
-
-.proyecto__titulo {
-  margin-bottom: 0.875rem;
-}
-
-.proyecto__resumen {
-  margin-bottom: 1rem;
-  max-width: 62ch;
-  font-size: 1.0625rem;
-  line-height: 1.55;
-}
-
-.proyecto__descripcion {
-  margin-bottom: 0.75rem;
-  max-width: 64ch;
+.servicio__texto {
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--color-secundario);
 }
 
-.proyecto__stack {
+
+/* ====================================
+   PROYECTOS — SELECTOR
+   Sin JS: los nombres son anclas y los 7 paneles quedan visibles uno
+   debajo del otro. Con JS pasan a ser pestañas y se muestra uno.
+   ==================================== */
+
+.selector__lista {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1.25rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
   list-style: none;
+  scrollbar-width: thin;
 }
 
-.proyecto__stack-item {
-  padding: 0.25rem 0.625rem;
+/* En celular se acotan para que entren dos y media en pantalla: si cada
+   nombre ocupa todo el ancho no se ve que hay más proyectos al costado */
+.selector__opcion {
+  display: block;
+  width: 13rem;
+  padding: 0.625rem 0.875rem;
   border: 1px solid var(--color-borde);
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-secundario);
+  transition: border-color var(--transicion), color var(--transicion),
+    background-color var(--transicion);
+}
+
+.selector__opcion:hover {
+  border-color: var(--color-secundario);
+  color: var(--color-texto);
+}
+
+.selector__opcion--activa {
+  border-color: var(--color-acento);
+  background-color: var(--color-acento-suave);
+  color: var(--color-texto);
+}
+
+/* Con JS sólo se ve el panel elegido */
+.js .panel[hidden] {
+  display: none;
+}
+
+.panel {
+  scroll-margin-top: calc(var(--alto-header) + 1.5rem);
+}
+
+/* Sin JS los paneles se leen en fila, así que necesitan separación */
+.panel + .panel {
+  margin-top: 3rem;
+}
+
+.js .panel + .panel {
+  margin-top: 0;
+}
+
+.panel__media {
+  position: relative;
+  margin-right: var(--marco);
+  margin-bottom: calc(var(--marco) + 1.5rem);
+}
+
+/* El marco azul desplazado: mismo rectángulo, corrido en diagonal */
+.panel__media::before {
+  content: '';
+  position: absolute;
+  inset: var(--marco) calc(var(--marco) * -1) calc(var(--marco) * -1) var(--marco);
+  border: 1px solid var(--color-acento);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.panel__imagen {
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--color-borde);
+  border-radius: 4px;
+  background-color: var(--color-superficie);
+}
+
+.panel__imagen--terminal {
+  object-fit: contain;
+  background-color: #0C0C0C;
+}
+
+.panel__titulo {
+  margin-bottom: 0.875rem;
+  font-size: 1.25rem;
+}
+
+.panel__resumen {
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.panel__acciones {
+  margin-bottom: 1.25rem;
+}
+
+
+/* ====================================
+   DETALLE ("Ver más")
+   ==================================== */
+
+.detalle__resumen {
+  display: inline-block;
+  font-size: 0.9375rem;
+  color: var(--color-acento);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--transicion);
+}
+
+.detalle__resumen::-webkit-details-marker {
+  display: none;
+}
+
+.detalle__resumen:hover {
+  color: var(--color-texto);
+}
+
+.detalle__cerrar {
+  display: none;
+}
+
+.detalle[open] .detalle__abrir {
+  display: none;
+}
+
+.detalle[open] .detalle__cerrar {
+  display: inline;
+}
+
+.detalle__contenido {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   color: var(--color-secundario);
 }
 
-.proyecto__acciones {
-  margin-top: 1.25rem;
+
+/* ====================================
+   CÓMO TRABAJO
+   Los pasos sí son una secuencia, así que la numeración informa.
+   ==================================== */
+
+.pasos {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+}
+
+.paso__numero {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--fuente-titulos);
+  font-size: 0.875rem;
+  color: var(--color-acento);
+  font-variant-numeric: tabular-nums;
+}
+
+.paso__titulo {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.paso__texto {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-secundario);
 }
 
 
@@ -539,91 +715,33 @@ h4 {
    SOBRE MÍ
    ==================================== */
 
-.sobre-mi__titulo {
-  margin-bottom: 1.5rem;
-}
-
-.sobre-mi__lead {
-  max-width: var(--ancho-texto);
-  margin-bottom: 1.25rem;
-  font-size: 1.125rem;
+.sobre-mi {
+  border-block: 1px solid var(--color-borde);
+  background-color: var(--color-superficie);
 }
 
 .sobre-mi__texto {
-  max-width: var(--ancho-texto);
-  margin-bottom: 1rem;
-  line-height: 1.75;
+  max-width: 62ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   color: var(--color-secundario);
-}
-
-
-/* ====================================
-   TECNOLOGÍAS
-   Bloque tranquilo a propósito: sirve a quien evalúa el perfil
-   técnico, pero no tiene que competir con los proyectos.
-   ==================================== */
-
-.tecnologias__titulo {
-  margin-bottom: 1.5rem;
-}
-
-.tecnologias__grupos {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.tecnologias__etiqueta {
-  margin-bottom: 0.625rem;
-  font-size: 0.875rem;
-  color: var(--color-secundario);
-}
-
-.tecnologias__lista {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-}
-
-/* Fichas oscuras sobre la banda clara: la inversión del contraste
-   de las tarjetas de proyecto, que son claras sobre fondo oscuro */
-.tecnologias__item {
-  padding: 0.4rem 0.75rem;
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-borde);
-  border-radius: var(--radio-chico);
-  font-size: 0.9375rem;
 }
 
 
 /* ====================================
    CONTACTO
-   Centrado: es el único bloque centrado de la página y por eso
-   funciona como cierre, después de todo el recorrido alineado
-   a la izquierda.
    ==================================== */
 
-.contacto__titulo,
-.contacto__texto,
-.contacto__ubicacion {
-  text-align: center;
-}
-
-.contacto__titulo {
-  margin-bottom: 1rem;
-}
-
 .contacto__texto {
-  max-width: 52ch;
-  margin-inline: auto;
+  max-width: 44ch;
   margin-bottom: 2rem;
+  font-size: 1.0625rem;
   color: var(--color-secundario);
 }
 
 .contacto__acciones {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -632,9 +750,9 @@ h4 {
   max-width: 22rem;
 }
 
-.contacto__ubicacion {
+.contacto__lugar {
   margin-top: 2rem;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-secundario);
 }
 
@@ -644,169 +762,321 @@ h4 {
    ==================================== */
 
 .footer {
-  padding-block: 2rem;
+  padding-block: 2rem 6rem; /* el extra deja lugar al CTA flotante */
   border-top: 1px solid var(--color-borde);
 }
 
-.footer__texto {
+.footer__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.footer__texto,
+.footer__link {
   font-size: 0.875rem;
   color: var(--color-secundario);
 }
 
+.footer__link {
+  transition: color var(--transicion);
+}
+
+.footer__link:hover {
+  color: var(--color-texto);
+}
+
 
 /* ====================================
-   MEDIA QUERIES
-   Dos breakpoints, elegidos mirando el conjunto:
-
-   - 768px (tablet): entra el layout de dos columnas —las fichas
-     pasan a fila (captura + texto), servicios y tecnologías se
-     abren— y el header entra en una sola línea.
-
-   - 1024px (desktop): sube la escala tipográfica y el aire entre
-     secciones, que en pantalla grande necesita más respiro.
+   CTA FLOTANTE
    ==================================== */
 
-@media (min-width: 768px) {
-  :root {
-    --gutter: 2rem;
-    --espacio-seccion: 5.5rem;
-    --alto-header: 5rem;
-  }
-
-  .header__interior {
-    flex-wrap: nowrap;
-    padding-block: 0.875rem;
-  }
-
-  .header__marca {
-    font-size: 1rem;
-  }
-
-  .header__github {
-    order: 2;
-    padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
-  }
-
-  /* En el DOM GitHub va antes del menú para que en celular comparta
-     fila con la marca; en una sola fila el orden visual vuelve a ser
-     marca · menú · GitHub */
-  .nav {
-    order: 1;
-    flex-basis: auto;
-    overflow: visible;
-  }
-
-  .nav__menu {
-    gap: 0.25rem;
-  }
-
-  .nav__link {
-    padding: 0.5rem 0.625rem;
-    font-size: 0.9375rem;
-  }
-
-  .hero__titulo {
-    font-size: 3rem;
-  }
-
-  .hero__claim {
-    font-size: 1.3125rem;
-  }
-
-  .hero__subtitulo {
-    font-size: 1.0625rem;
-  }
-
-  .servicios__lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.5rem;
-  }
-
-  /* Fila de caso: la captura ocupa poco menos de la mitad. La
-     imagen mantiene su proporción arriba y el panel oscuro llena
-     el resto de la altura —estirar la imagen a toda la altura de
-     una ficha larga la ampliaba tanto que le comía los costados */
-  .proyecto {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  }
-
-  .proyecto__media {
-    border-bottom: 0;
-    border-right: 1px solid var(--color-borde);
-  }
-
-  .proyecto__cuerpo {
-    padding: 1.75rem;
-  }
-
-  .proyecto + .proyecto {
-    margin-top: 2rem;
-  }
-
-  .tecnologias__grupos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem;
-  }
-
-  .contacto__link {
-    width: auto;
-  }
+.flotante {
+  position: fixed;
+  right: max(var(--gutter), env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 15;
+  padding: 0.75rem 1.125rem;
+  background-color: var(--color-primario);
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  transition: background-color var(--transicion), opacity var(--transicion),
+    transform var(--transicion);
 }
 
-@media (min-width: 1024px) {
-  :root {
-    --espacio-seccion: 7rem;
-  }
+.flotante:hover {
+  background-color: var(--color-primario-hover);
+}
 
-  h1 {
-    font-size: 3.5rem;
-  }
+.flotante__largo {
+  display: none;
+}
 
-  h2 {
-    font-size: 2.125rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  h4 {
-    font-size: 1.25rem;
-  }
-
-  /* El rol completo aparece recién acá: a 768px la marca entera
-     parte la barra en dos líneas */
-  .header__marca-rol {
-    display: inline;
-  }
-
-  .hero__titulo {
-    font-size: 3.5rem;
-  }
-
-  .hero__claim {
-    font-size: 1.375rem;
-  }
-
-  .sobre-mi__lead {
-    font-size: 1.25rem;
-  }
+/* Con Contacto en pantalla el botón sobra: ahí está el mismo CTA */
+.flotante--oculto {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  pointer-events: none;
 }
 
 
-/* Respeta a quien pidió menos movimiento en el sistema operativo */
+/* ====================================
+   MOVIMIENTO
+   Un momento de carga en el hero y un solo tipo de reveal al
+   scrollear, ambos sólo con JS.
+   ==================================== */
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.js .hero__estado,
+.js .hero__titulo,
+.js .hero__parrafo,
+.js .hero__acciones,
+.js .hero__cifras {
+  animation: subir 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.js .hero__titulo {
+  animation-delay: 80ms;
+}
+
+.js .hero__parrafo {
+  animation-delay: 200ms;
+}
+
+.js .hero__acciones {
+  animation-delay: 320ms;
+}
+
+.js .hero__cifras {
+  animation-delay: 420ms;
+}
+
+.js .revelar {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 650ms ease, transform 650ms ease;
+}
+
+.js .revelar--visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .js .hero__estado,
+  .js .hero__titulo,
+  .js .hero__parrafo,
+  .js .hero__acciones,
+  .js .hero__cifras {
+    animation: none;
+  }
+
+  .js .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* ====================================
+   MEDIA QUERIES
+   ==================================== */
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+    --marco: 14px;
+    --header-margen: 0.75rem;
+    --header-alto: 3.75rem;
+  }
+
+  .bloque {
+    padding-block: 5.5rem;
+  }
+
+  .cabecera {
+    margin-bottom: 3rem;
+  }
+
+  /* Servicios en 2x2 a partir de tablet y en adelante: cuatro columnas
+     dejarían tarjetas de ~200px con los textos partidos en muchas líneas */
+  .servicios__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .tarjeta {
+    padding: 1.625rem;
+  }
+
+  .pasos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .contacto__link {
+    width: auto;
+  }
+
+  .flotante {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    padding: 0.875rem 1.375rem;
+  }
+
+  .flotante__largo {
+    display: inline;
+  }
+
+  .flotante__corto {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-margen: 0.875rem;
+  }
+
+  .header__interior {
+    flex-wrap: nowrap;
+    padding-inline: 0.875rem;
+  }
+
+  .js .nav__boton {
+    display: none;
+  }
+
+  .nav {
+    flex-basis: auto;
+  }
+
+  .nav__menu,
+  .js .nav__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    padding-block: 0;
+  }
+
+  /* Cada ítem es un recuadro; el de la sección activa se rellena y
+     se marca con borde. Es el mismo lenguaje que la pestaña activa
+     del selector de proyectos. */
+  .nav__link {
+    padding: 0.4375rem 0.875rem;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 0.9375rem;
+    transition: color var(--transicion), background-color var(--transicion),
+      border-color var(--transicion);
+  }
+
+  .nav__link:hover {
+    background-color: var(--color-superficie);
+  }
+
+  /* Borde en azul pleno (5.1:1): el recuadro es el indicador de estado y
+     necesita 3:1 como mínimo, cosa que un borde atenuado no alcanzaba */
+  .nav__link--activa,
+  .nav__link--activa:hover {
+    background-color: var(--color-acento-suave);
+    border-color: var(--color-acento);
+  }
+
+  .bloque {
+    padding-block: 6.5rem;
+  }
+
+  /* Hero en una sola columna alineada a la izquierda: a más ancho sólo
+     crece el aire y el tamaño del título; el lado derecho queda vacío */
+  .hero {
+    padding-top: calc(var(--alto-header) + 5rem);
+    padding-bottom: 5rem;
+  }
+
+  .hero__estado {
+    margin-bottom: 1.75rem;
+  }
+
+  .hero__titulo {
+    font-size: 5rem;
+  }
+
+  .hero__detalle {
+    margin-top: 2rem;
+  }
+
+  .hero__cifras {
+    margin-top: 3.5rem;
+  }
+
+  .pasos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* Selector: lista de nombres a la izquierda, panel a la derecha, para
+     que la sección entre en una pantalla en lugar de crecer hacia abajo */
+  .selector {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .selector__lista {
+    flex-direction: column;
+    gap: 0.375rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+
+  .selector__opcion {
+    width: auto;
+    font-size: 0.875rem;
+  }
+
+  /* align-items: start y no center. Con center, al abrir "Ver más" el
+     texto crece, la altura de la fila crece con él y la imagen —centrada
+     en esa fila— se corría hacia abajo. Con start queda anclada arriba y
+     el texto se despliega por debajo sin arrastrarla. */
+  .panel {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .panel__media {
+    margin-bottom: var(--marco);
+  }
+
+  .panel__titulo {
+    font-size: 1.375rem;
   }
 }
