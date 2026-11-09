@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.5 46" fill="none">
+  <!-- Isotipo LB para fondos claros: Ink con el cursor en Violeta hondo (Mint no va sobre claro). -->
+  <path d="M3 3v40M25 43V3h10a8.5 8.5 0 0 1 0 17H25h12a11.5 11.5 0 0 1 0 23z" stroke="#0A0F1F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect y="40" width="20" height="6" rx="3" fill="#5E45F2"/>
+</svg>

@@ -1,0 +1,35 @@
+# Configuración de Caddy para Railway.
+{
+	# Railway ya pone HTTPS y el certificado delante: Caddy solo atiende HTTP.
+	auto_https off
+	admin off
+}
+
+# Railway indica el puerto en la variable PORT; 8080 es el respaldo local.
+:{$PORT:8080} {
+	root * /srv
+	encode zstd gzip
+	file_server
+
+	# Caché del navegador
+	# - Fuentes: no cambian nunca → un año.
+	# - Imágenes e íconos: un día, para que una captura nueva se vea rápido.
+	# - HTML, CSS y JS: se revalidan siempre (Caddy responde 304 si no cambiaron).
+	@fuentes path /assets/fonts/*
+	header @fuentes Cache-Control "public, max-age=31536000, immutable"
+
+	@imagenes path /assets/img/* /favicon.svg /favicon.ico /apple-touch-icon.png
+	header @imagenes Cache-Control "public, max-age=86400"
+
+	@resto not path /assets/fonts/* /assets/img/* /favicon.svg /favicon.ico /apple-touch-icon.png
+	header @resto Cache-Control "no-cache"
+
+	# Encabezados de seguridad básicos
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+}

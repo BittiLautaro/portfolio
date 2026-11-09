@@ -1,125 +1,131 @@
-# Contexto del proyecto — Portfolio
+# Contexto del proyecto — Portfolio de Lautaro Bitti
 
-## Qué es este proyecto
+## Qué es
 
-Página web personal de portfolio para Lautaro, desarrollador freelance de Las Parejas,
-Santa Fe (Argentina). El objetivo es conseguir clientes nuevos **fuera** de su ciudad,
-donde no lo conocen. Se va a promocionar desde una cuenta de Instagram (con pauta paga),
-así que la mayoría del tráfico va a llegar desde el celular.
+Sitio web de captación de clientes de Lautaro Bitti, desarrollador de software
+freelance de Las Parejas, Santa Fe (Argentina). Una sola página larga con
+navegación por anclas.
 
-Público objetivo: dueños de negocios chicos y medianos que necesitan un sistema de
-gestión a medida o una página web.
+**Público:** dueños de negocios, PyMEs e instituciones que necesitan un sistema
+de gestión a medida o una página web. **No** es un portfolio para reclutadores.
 
-## Decisiones ya tomadas (no reabrir sin motivo)
+**Tráfico:** llega mayormente desde Instagram, en el celular. Mobile-first.
 
-- **Sitio estático**: solo HTML + CSS + JS. Sin backend, sin base de datos.
-  El motivo: la página se actualiza muy poco (cuando se suma un proyecto nuevo),
-  así que un panel de administración no se amortiza. Además la velocidad de carga
-  es crítica porque va a recibir tráfico pago desde celular.
-- **Una sola página larga** con navegación por anclas (`#inicio`, `#servicios`,
-  `#proyectos`, `#sobre-mi`, `#contacto`). No hay páginas separadas.
-- **Mobile-first**: el diseño se piensa primero para celular y después se adapta
-  a desktop, no al revés.
-- **Formulario de contacto**: por ahora links directos a WhatsApp e Instagram.
-  Si más adelante se quiere un formulario, se usa un servicio externo
-  (Formspree / Web3Forms), nunca backend propio.
+## Fuente de verdad del diseño
 
-## Pendiente de definir
+La carpeta `referencia/` (fuera del control de versiones) tiene el export de
+Claude Design: `Portfolio Bocetos.dc.html`, la propuesta **1A**. Es un lienzo de
+diseño, no un sitio: se usa como referencia visual y como fuente de los
+**textos finales** (Lautaro los editó ahí). Si un texto del diseño difiere de
+otro documento, **gana el diseño**.
 
-- **Nombre de marca**: todavía sin definir. En el código va como `[Marca]`.
-  No inventar uno.
-- Número de WhatsApp y usuario de Instagram: placeholders por ahora.
-- Paleta de colores y tipografía.
-- Capturas de pantalla de los proyectos (van en `assets/img/`).
+`referencia/uploads/Kit de marca Lautaro Bitti.pdf` es el kit de marca. Manda
+sobre cualquier decisión visual.
 
-## Estructura de archivos
+## Kit de marca (resumen — ante dudas, ver el PDF)
 
-```
-portfolio/
-├── index.html
-├── README.md
-├── .gitignore
-└── assets/
-    ├── css/style.css
-    ├── js/main.js
-    └── img/
-```
+### Colores
+| Token | Hex | Uso |
+|---|---|---|
+| Ink | `#0A0F1F` | Fondo principal · texto sobre claro |
+| Grafito | `#151D36` | Tarjetas y ventanas de código |
+| Nube | `#F3F5FA` | Fondo claro · texto sobre oscuro |
+| Niebla | `#98A2B8` | Texto secundario sobre oscuro |
+| Mint | `#34F0B4` | Acento: cursor, CTA, destacados |
+| Violeta | `#8B77FF` | Apoyo |
+| Violeta hondo | `#5E45F2` | Acento sobre fondos claros |
+| Acero | `#4A5470` | Texto secundario sobre claro |
+
+- Texto sobre Mint o Violeta: **siempre Ink**.
+- Mint nunca como texto sobre fondo claro (ahí va Violeta hondo).
+- Mint se usa poco: es lo que lo hace fuerte.
+
+### Tipografía (servidas localmente, sin Google Fonts)
+- **Space Grotesk** Bold 700 — títulos · espaciado −3,5 % · interlineado 1,0
+- **Inter** 400 / 500 — texto · 18/28
+- **JetBrains Mono** 400 — etiquetas en MAYÚSCULA (+12 % espaciado) y código
+
+### Logo
+Isotipo **LB**: la L y la B comparten grilla y el pie de la L es un cursor en
+Mint. Tiene que ser un **SVG** idéntico al del kit (el export solo trae PNG en
+`referencia/assets/`). Favicon: el sello con fondo Ink.
+
+## Secciones (en este orden)
+
+Nav: Servicios · Proyectos · Cómo trabajo · Sobre mí · Contacto
+
+1. **Hero** — etiqueta "Disponible para nuevos proyectos" con punto verde,
+   título en dos líneas, párrafo, botones WhatsApp + Ver proyectos, línea de
+   cifras. Todo alineado a la izquierda, lado derecho vacío.
+2. **Servicios** — 4 tarjetas de igual peso.
+3. **Proyectos** — 6 proyectos (ver abajo).
+4. **Cómo trabajo** — 4 pasos numerados en tarjetas.
+5. **Sobre mí** — corta.
+6. **Contacto** — tarjeta de cierre con WhatsApp, Instagram y ubicación.
+7. Pie con isotipo y GitHub.
+
+Botón flotante de WhatsApp: aparece después del hero y se oculta al llegar a
+Contacto.
+
+## Proyectos (6)
+
+1. DQV Turismo — Sistema de gestión integral
+2. Cuartel de Bomberos — Sistema de gestión contable
+3. Cuartel de Bomberos — Control de carga horaria
+4. Lavadero de autos — Sistema de gestión
+5. Mecheros LP — Sitio institucional → `https://mecheroslp.com.ar/`
+6. Simplemente Momentos PH — Portfolio fotográfico → `https://simplementemomentos.com.ar/`
+
+Los sistemas 1–4 son privados: **sin link**. El proyecto de la pizzería ya
+**no existe** en el sitio: no volver a agregarlo.
+
+- **Desktop:** selector. Lista numerada a la izquierda, ficha del elegido a la
+  derecha (captura en marco de navegador, título, resumen, stack, "Ver más").
+- **Celular:** lista numerada colapsada (número, nombre, subtítulo). Al tocar
+  uno, la ficha se expande **en el lugar**, con el texto completo ya visible
+  (sin un segundo "Ver más"). La lista sigue visible.
+
+## Capturas
+
+Formato 16:10, archivo de 1440 × 900, recortando la zona que importa del
+sistema (no el dashboard entero en miniatura). WebP de menos de 200 KB, sin
+barras del navegador (el marco lo dibuja el CSS). Van en `assets/img/`.
+Mientras Lautaro no las tenga, se dejan placeholders prolijos.
+
+## Datos de contacto
+
+- WhatsApp: `https://wa.me/5493471670231` (con mensaje prellenado)
+- Instagram: pendiente → `href="#"` hasta que Lautaro pase el usuario
+- GitHub: `https://github.com/BittiLautaro`
+- Ubicación: Las Parejas, Santa Fe · Trabajo remoto para todo el país
+
+## Hosting
+
+**Railway**, no GitHub Pages. Es un sitio estático: no hay backend, base de
+datos ni formulario. Se sirve con la configuración mínima para archivos
+estáticos. El dominio propio se conecta más adelante.
 
 ## Convenciones de código
 
-- HTML semántico (`<section>`, `<article>`, `<nav>`, `<header>`), no `<div>` para todo.
-  Importa para SEO y accesibilidad.
-- Jerarquía de títulos sin saltear niveles: `h1` → `h2` → `h3` → `h4`.
-- Clases con convención **BEM**: `bloque`, `bloque__elemento`, `bloque--modificador`.
-  Ejemplo: `nav`, `nav__menu`, `btn--secundario`.
-- CSS con variables en `:root` para colores y tipografías.
-- Sin frameworks (nada de Bootstrap ni Tailwind). CSS propio.
+- HTML semántico, jerarquía de títulos sin saltos.
+- CSS puro con BEM y variables en `:root` con los nombres del kit
+  (`--ink`, `--mint`, etc.). Sin frameworks ni librerías.
+- JavaScript solo para lo interactivo, como mejora progresiva: sin JS, todo el
+  contenido se tiene que poder leer.
+- `prefers-reduced-motion`, contraste WCAG AA, `focus-visible`.
 - Comentarios en español.
 
-## Secciones de la página (en este orden)
+## Qué NO hacer
 
-1. **Hero** — título, subtítulo de una línea, botón "Pedir presupuesto".
-2. **Servicios** — dos bloques: "Sistemas de gestión a medida" y "Páginas web".
-3. **Proyectos** — dividido en las mismas dos categorías.
-4. **Sobre mí** — formación y forma de trabajar.
-5. **Contacto** — links a WhatsApp e Instagram.
-
-## Proyectos que van en el portfolio
-
-### Sistemas de gestión
-
-| Proyecto | Detalle | Stack |
-|---|---|---|
-| **DQV Turismo** | Plataforma de gestión para una empresa de turismo. Cliente real, en producción. | Flask, PostgreSQL, Railway |
-| **Gestión — Cuartel de Bomberos de Las Parejas** | Sistema de gestión para el cuartel. Cliente real. | Flask, PostgreSQL |
-| **Control de carga horaria — Cuartel de Bomberos** | Control de horas del personal. Cliente real. | Flask, PostgreSQL |
-| **Gestión de lavadero** | Sistema para administrar un lavadero de autos. Uso propio, en funcionamiento. | Flask, PostgreSQL |
-| **Sistema de venta de pizzas** | Gestión de pedidos. **En uso real**, corre por terminal. Se está migrando a web. | Python |
-
-### Páginas web
-
-| Proyecto | Detalle | Stack |
-|---|---|---|
-| **Mecheros LP** | Página institucional para un negocio de mecheros de aluminio. | HTML, CSS, JS |
-| **Simplemente Momentos PH** | Página para un emprendimiento de fotografía. | HTML, CSS, JS |
-
-### Qué NO va
-
-- **Estudio Propezzi**: quedó a medio hacer, fue solo una prueba y el estudio nunca
-  lo pidió. Un trabajo inconcluso en el portfolio juega en contra. Queda afuera.
-
-### Cómo presentar el sistema de pizzas
-
-No describirlo como "en desarrollo" ni "inconcluso" — es un sistema que funciona y
-se usa todos los días. La interfaz es de terminal, eso es todo. Se puede agregar una
-línea tipo "actualmente migrándose a plataforma web", que suena a evolución y no a
-deuda pendiente.
-
-## Sobre Lautaro (para la sección "Sobre mí")
-
-- Estudiante de primer año de Analista en Sistemas, con intención de seguir a
-  Ingeniería en Sistemas.
-- Desarrollador freelance, trabaja principalmente con Flask + PostgreSQL + Railway.
-- Tiene clientes reales en producción.
-- Forma de trabajar: entiende el problema del negocio antes de escribir código.
+- No usar el azul del sitio anterior (`#3B82F6`, `#2563EB`) ni el fondo `#0F1115`.
+- No reescribir textos.
+- No agregar precios, preguntas frecuentes ni sección de tecnologías.
+- Nada que se mueva solo (sin carruseles automáticos).
 
 ## Cómo trabajar con Lautaro
 
-Esto es importante y aplica a **todas** las respuestas:
-
-- **De a un paso o un archivo por vez**, confirmando antes de seguir. No entregar
-  todo junto ni avanzar varios pasos sin preguntar.
-- **Siempre explicar el "por qué"** de cada decisión, no solo el "cómo".
-  Quiere entender, no copiar y pegar.
-- Explicaciones **estructuradas**, de lo fundamental a lo avanzado, sin saltear pasos.
-- Código **claro y ordenado**, explicado línea por línea cuando haga falta.
-- Si algo se puede hacer de forma más profesional u optimizada, **decírselo**.
-- Hablar en **español rioplatense informal** (vos, tenés, querés).
-- Está en **Windows con PowerShell**, no en bash. Los comandos de terminal tienen que
-  ser sintaxis PowerShell (`New-Item` en vez de `mkdir -p`, rutas con `\`).
-
-## Estado actual
-
-Repositorio creado y vinculado a GitHub (`BittiLautaro/portfolio`).
-Estructura de carpetas y archivos creada, todos vacíos.
-El siguiente paso es escribir el esqueleto de `index.html`.
+- De a un paso, confirmando antes de seguir.
+- Explicar siempre el porqué de cada decisión.
+- Español rioplatense informal.
+- Está en **Windows con PowerShell**: los comandos van en sintaxis PowerShell.
+- Si algo se puede hacer más profesional, decírselo.
