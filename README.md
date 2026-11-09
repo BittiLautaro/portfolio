@@ -41,20 +41,27 @@ Después de cambiar una captura, actualizá también el `alt` de esa imagen en
 
 ## Dominio
 
-`https://tu-dominio.com.ar/` es un marcador en `index.html`, `robots.txt` y
-`sitemap.xml`. Cuando esté el dominio, desde la carpeta del proyecto en
-PowerShell:
+Mientras no haya dominio propio, el sitio usa la URL de Railway
+(`https://lautarobitti.up.railway.app/`) en `index.html`, `robots.txt` y
+`sitemap.xml`. Cuando esté el dominio:
 
-```powershell
-$nuevo = 'https://midominio.com.ar/'
-'index.html','robots.txt','sitemap.xml' | ForEach-Object {
-  (Get-Content $_ -Raw -Encoding UTF8).Replace('https://tu-dominio.com.ar/', $nuevo) |
-    Set-Content $_ -Encoding UTF8 -NoNewline
-}
-```
+1. En Railway: **Settings → Networking → Custom Domain** y cargar en el
+   proveedor del dominio el registro CNAME que indica Railway.
+2. Reemplazar la URL en los tres archivos, desde la carpeta del proyecto en
+   PowerShell:
 
-Después, probar la vista previa en <https://www.opengraph.xyz/> o pegando el
-link en un chat de WhatsApp.
+   ```powershell
+   $nuevo = 'https://midominio.com.ar/'
+   'index.html','robots.txt','sitemap.xml' | ForEach-Object {
+     (Get-Content $_ -Raw -Encoding UTF8).Replace('https://lautarobitti.up.railway.app/', $nuevo) |
+       Set-Content $_ -Encoding UTF8 -NoNewline
+   }
+   ```
+
+3. Commit y push.
+4. Probar la vista previa en <https://www.opengraph.xyz/> o pegando el link en
+   un chat de WhatsApp. Si WhatsApp sigue mostrando la vista vieja, es caché
+   suya: se actualiza sola en unos días.
 
 ## Ver el sitio en la compu
 
