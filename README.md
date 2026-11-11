@@ -18,26 +18,24 @@ Dockerfile, Caddyfile   configuración de Railway
 
 ## Capturas de los proyectos
 
-Ahora hay capturas provisorias con un rayado. Para poner las reales, **se
-reemplaza el archivo con el mismo nombre** en `assets/img/` y no hay que tocar
-el HTML.
+Para cambiar una, **se reemplaza el archivo con el mismo nombre** en
+`assets/img/` y no hay que tocar el HTML (salvo el `alt`, si la imagen muestra
+otra cosa).
 
-| Proyecto | Archivo | Recorte sugerido |
+| Proyecto | Archivo | Qué muestra hoy |
 |---|---|---|
-| DQV Turismo | `dqv-turismo.webp` | listado de pasajeros de un viaje |
-| Bomberos · contable | `bomberos-contable.webp` | balance de bancos, cajas y mutuales |
+| DQV Turismo | `dqv-turismo.webp` | menú de módulos y lista de pasajeros de un contrato |
+| Bomberos · contable | `bomberos-contable.webp` | saldos y cuentas del dashboard |
 | Bomberos · carga horaria | `bomberos-carga-horaria.webp` | quién está de guardia y hace cuánto |
-| Lavadero de autos | `lavadero.webp` | dashboard del mes (autos, cobrado, ganancia) |
-| Mecheros LP | `mecheros-lp.webp` | portada con los productos |
-| Simplemente Momentos PH | `simplemente-momentos.webp` | galería por categorías |
+| Lavadero de autos | `lavadero.webp` | números del mes y próximos turnos |
+| Mecheros LP | `mecheros-lp.webp` | portada |
+| Simplemente Momentos PH | `simplemente-momentos.webp` | portada |
 
-- **1440 × 900 px** (16:10), recortando la mitad de la pantalla (≈ 720 × 450 de
-  interfaz) capturada a 2×. No el dashboard entero en miniatura.
+- **1440 × 900 px** (16:10), recortando la zona que importa (más o menos la
+  mitad de la pantalla) de una captura a 2×. No la pantalla entera en miniatura.
 - **WebP de menos de 200 KB**, sin las barras del navegador (el marco lo dibuja el CSS).
-- En los sistemas privados, con datos de prueba.
-
-Después de cambiar una captura, actualizá también el `alt` de esa imagen en
-`index.html` si el recorte es distinto del sugerido.
+- En los sistemas privados, con datos de prueba. En la del lavadero, los
+  nombres de los clientes son inventados; en la de carga horaria, los horarios.
 
 ## Dominio
 
