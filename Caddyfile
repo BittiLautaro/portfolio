@@ -13,15 +13,14 @@
 
 	# Caché del navegador
 	# - Fuentes: no cambian nunca → un año.
-	# - Imágenes e íconos: un día, para que una captura nueva se vea rápido.
-	# - HTML, CSS y JS: se revalidan siempre (Caddy responde 304 si no cambiaron).
+	# - Todo lo demás (HTML, CSS, JS e imágenes) se revalida en cada visita:
+	#   si no cambió, Caddy responde 304 sin reenviarlo. Las capturas se
+	#   reemplazan con el mismo nombre de archivo, y con un max-age el navegador
+	#   seguiría mostrando la vieja sin preguntar.
 	@fuentes path /assets/fonts/*
 	header @fuentes Cache-Control "public, max-age=31536000, immutable"
 
-	@imagenes path /assets/img/* /favicon.svg /favicon.ico /apple-touch-icon.png
-	header @imagenes Cache-Control "public, max-age=86400"
-
-	@resto not path /assets/fonts/* /assets/img/* /favicon.svg /favicon.ico /apple-touch-icon.png
+	@resto not path /assets/fonts/*
 	header @resto Cache-Control "no-cache"
 
 	# Encabezados de seguridad básicos

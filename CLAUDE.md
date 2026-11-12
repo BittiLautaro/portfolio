@@ -69,7 +69,7 @@ Contacto.
 
 ## Proyectos (6)
 
-1. DQV Turismo — Sistema de gestión integral
+1. PaxControl — Sistema de gestión para turismo estudiantil (antes "DQV Turismo"; imagen `paxcontrol.webp`)
 2. Cuartel de Bomberos — Sistema de gestión contable
 3. Cuartel de Bomberos — Control de carga horaria
 4. Lavadero de autos — Sistema de gestión

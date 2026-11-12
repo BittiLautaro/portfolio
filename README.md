@@ -24,7 +24,7 @@ otra cosa).
 
 | Proyecto | Archivo | Qué muestra hoy |
 |---|---|---|
-| DQV Turismo | `dqv-turismo.webp` | menú de módulos y lista de pasajeros de un contrato |
+| PaxControl | `paxcontrol.webp` | menú de módulos y lista de pasajeros de un contrato |
 | Bomberos · contable | `bomberos-contable.webp` | saldos y cuentas del dashboard |
 | Bomberos · carga horaria | `bomberos-carga-horaria.webp` | quién está de guardia y hace cuánto |
 | Lavadero de autos | `lavadero.webp` | números del mes y próximos turnos |
@@ -34,8 +34,10 @@ otra cosa).
 - **1440 × 900 px** (16:10), recortando la zona que importa (más o menos la
   mitad de la pantalla) de una captura a 2×. No la pantalla entera en miniatura.
 - **WebP de menos de 200 KB**, sin las barras del navegador (el marco lo dibuja el CSS).
-- En los sistemas privados, con datos de prueba. En la del lavadero, los
-  nombres de los clientes son inventados; en la de carga horaria, los horarios.
+- En los sistemas privados, con datos de prueba. Datos editados sobre la
+  captura original: en el lavadero, los nombres de los clientes; en carga
+  horaria, los horarios; en el contable, los nombres y saldos de las cuentas
+  y el usuario ("Tesorería").
 
 ## Dominio
 
